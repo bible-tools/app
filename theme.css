@@ -1,0 +1,67 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* This is a font-stack that tries to use the system-default sans-serifs first */
+  font-family: Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme-light body {
+  background-color: #fff;
+}
+
+.theme-dark body {
+  background-color: #111;
+}
+
+bible-tools-app {
+  --article-gallery-display: flex;
+  --article-gallery-item-flex: auto;
+  --article-gallery-item-margin: 0;
+
+  --h1-font-size: 1.5rem;
+  --img-padding-top: 2rem;
+  --ul-list-style-type: none;
+}
+
+.theme-light bible-tools-app {
+  background-color: #fff;
+
+  --text-color: #111;
+  --paper-listbox-background-color: rgba(255, 255, 255, 0.99);
+  --primary-background-color: #fff;
+  --primary-foreground-color: #111;
+  --primary-text-color: #111;
+  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --bible-tools-single-verse-text-color: #111;
+  --bible-tools-single-chapter-range-reference-color: #111;
+
+
+  --paper-dropdown-menu-focused-color: #000;
+  --primary-color: #000;
+  --paper-dropdown-menu-color: #000;
+  --secondary-text-color: #000;
+}
+
+.theme-dark bible-tools-app {
+  background-color: #111;
+
+  --text-color: #fff;
+  --paper-listbox-background-color: rgba(0, 0, 0, 0.99);
+  --primary-background-color: #111;
+  --primary-foreground-color: #fff;
+  --primary-text-color: #fff;
+  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --bible-tools-single-verse-text-color: #fff;
+  --bible-tools-single-chapter-range-reference-color: #fff;
+
+  --paper-dropdown-menu-focused-color: #fff;
+  --primary-color: #fff;
+  --paper-dropdown-menu-color: #fff;
+  --secondary-text-color: #fff;
+}

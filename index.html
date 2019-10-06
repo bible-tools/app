@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US" class="theme-light">
+<head>
+  <base href="/app/">
+  <meta charset="utf-8">
+  <meta name="application-name" content="Bible Tools">
+  <meta name="Description" content="An app using bible-tools data.">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#000">
+  <meta name="msapplication-TileColor" content="#000">
+  <meta name="msapplication-TileImage" content="./icons/mstile-144x144.png">
+  <meta name="msapplication-square70x70logo" content="./icons/mstile-70x70.png">
+  <meta name="msapplication-square150x150logo" content="./icons/mstile-150x150.png">
+  <meta name="msapplication-wide310x150logo" content="./icons/mstile-310x150.png">
+  <meta name="msapplication-square310x310logo" content="./icons/mstile-310x310.png">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="./icons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="./icons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="./icons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./icons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="./icons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="./icons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="./icons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="./icons/apple-touch-icon-152x152.png">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="theme.css">
+  <title>Bible Tools</title>
+</head>
+<body>
+  <bible-tools-app
+    siteTitle="Bible Tools"
+    siteUrl="/app/"
+  ></bible-tools-app>
+
+  <script type="module">
+    import './dist/esm/bible-tools-app.js'
+    import registerServiceWorker from './service-worker/registerServiceWorker.js'
+
+    registerServiceWorker(document.querySelector('base').href.replace(/\/$/, ''))
+  </script>
+</body>
+
+</html>
