@@ -11,7 +11,7 @@ export class BibleToolsHamburger extends LitElement {
     return css`
       :host {
         display: block;
-
+        flex: 1;
         width: 1.5rem;
       }
 

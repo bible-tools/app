@@ -23,45 +23,50 @@ bible-tools-app {
   --article-gallery-display: flex;
   --article-gallery-item-flex: auto;
   --article-gallery-item-margin: 0;
-
-  --h1-font-size: 1.5rem;
-  --img-padding-top: 2rem;
-  --ul-list-style-type: none;
 }
 
 .theme-light bible-tools-app {
   background-color: #fff;
 
-  --text-color: #111;
+  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --paper-dropdown-menu-color: #000;
+  --paper-dropdown-menu-focused-color: #000;
   --paper-listbox-background-color: rgba(255, 255, 255, 0.99);
   --primary-background-color: #fff;
+  --primary-color: #000;
   --primary-foreground-color: #111;
   --primary-text-color: #111;
-  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
-  --bible-tools-single-verse-text-color: #111;
-  --bible-tools-single-chapter-range-reference-color: #111;
-
-
-  --paper-dropdown-menu-focused-color: #000;
-  --primary-color: #000;
-  --paper-dropdown-menu-color: #000;
   --secondary-text-color: #000;
+  --text-color: #111;
+
+  --bible-tools-drawer-container-background-color: #fff;
+  --bible-tools-drawer-header-background-color: #fff;
+  --bible-tools-drawer-header-color: #111;
+  --bible-tools-single-chapter-range-reference-color: #111;
+  --bible-tools-single-verse-color: #111;
+  --bible-tools-single-verse-reference-color: #111;
+  --bible-tools-single-verse-text-color: #111;
 }
 
 .theme-dark bible-tools-app {
   background-color: #111;
 
-  --text-color: #fff;
+  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --paper-dropdown-menu-color: #fff;
+  --paper-dropdown-menu-focused-color: #fff;
   --paper-listbox-background-color: rgba(0, 0, 0, 0.99);
   --primary-background-color: #111;
+  --primary-color: #fff;
   --primary-foreground-color: #fff;
   --primary-text-color: #fff;
-  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
-  --bible-tools-single-verse-text-color: #fff;
-  --bible-tools-single-chapter-range-reference-color: #fff;
-
-  --paper-dropdown-menu-focused-color: #fff;
-  --primary-color: #fff;
-  --paper-dropdown-menu-color: #fff;
   --secondary-text-color: #fff;
+  --text-color: #fff;
+
+  --bible-tools-drawer-container-background-color: #000;
+  --bible-tools-drawer-header-background-color: #111;
+  --bible-tools-drawer-header-color: #fff;
+  --bible-tools-single-chapter-range-reference-color: #fff;
+  --bible-tools-single-verse-text-color: #fff;
+  --bible-tools-single-verse-color: #fff;
+  --bible-tools-single-verse-reference-color: #fff;
 }

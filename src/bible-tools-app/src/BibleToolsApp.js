@@ -71,6 +71,10 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
       /* xs, extra-small: 0px */
       @media (min-width: 0px) {
+        :host {
+          --bible-tools-menu-drop-down-content-min-width: 7rem;
+        }
+
         bible-tools-single-chapter-range {
           max-width: 90%;
         }
@@ -82,6 +86,10 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
       /* sm, small: 600px */
       @media (min-width: 600px) {
+        :host {
+          --bible-tools-menu-drop-down-content-min-width: 11rem;
+        }
+
         bible-tools-single-chapter-range {
           max-width: 80%;
         }
@@ -93,6 +101,10 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
       /* md, medium: 960px */
       @media (min-width: 960px) {
+        :host {
+          --bible-tools-menu-drop-down-content-min-width: 15rem;
+        }
+
         bible-tools-single-chapter-range {
           max-width: 60%;
         }
@@ -104,12 +116,16 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
       /* lg, large: 1280px */
       @media (min-width: 1280px) {
+        :host {
+          --bible-tools-menu-drop-down-content-min-width: 20rem;
+        }
+
         bible-tools-single-chapter-range {
-          max-width: 33%;
+          max-width: 50%;
         }
 
         .chapter-view-flex {
-          min-width: 33%;
+          min-width: 25%;
         }
       }
 
@@ -186,7 +202,7 @@ export class BibleToolsApp extends connect(store)(LitElement) {
       <app-header reveals>
         <app-toolbar>
           <bible-tools-hamburger>Menu</bible-tools-hamburger>
-          <bible-tools-branding siteTitle="${this.siteTitle}" siteUrl="${this.siteUrl}"></bible-tools-branding>
+          <bible-tools-menu></bible-tools-menu>
         </app-toolbar>
       </app-header>
 
@@ -196,8 +212,6 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
       <!-- book, chapter, startverse, endverse -->
       <div class="app-content">
-        <bible-tools-menu></bible-tools-menu>
-
         <lit-route path="${this._path}">
           <div id="landing-chapter-view">
             <bible-tools-chapter-navigator

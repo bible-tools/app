@@ -14,38 +14,37 @@ export class BibleToolsDrawer extends LitElement {
   static get styles() {
     return css`
       .drawer-container {
-        --paper-listbox-color: var(--primary-foreground-color, #fff);
-
-        background-color: var(--primary-background-color, #000);
+        background-color: var(--bible-tools-drawer-container-background-color, initial);
         color: var(--primary-foreground-color, #fff);
         height: 100%;
 
         /* scroll without scrollbars */
         overflow: auto;
         -ms-overflow-style: none; /* IE 10+ */
-        scrollbar-width: none;    /* Firefox */
+        scrollbar-width: none; /* Firefox */
       }
 
       /* scroll without scrollbars */
       .drawer-container::-webkit-scrollbar {
-        display: none;            /* Safari and Chrome */
+        display: none; /* Safari and Chrome */
       }
 
       .drawer-header {
+        background-color: var(--bible-tools-drawer-header-background-color, initial);
+        color: var(--bible-tools-drawer-header-color, initial);
         font-size: 1.5rem;
-        margin: 1rem;
+        font-weight: bold;
+        padding: 1rem;
       }
 
-      .item-title {
-        font-size: 1rem;
-        margin-left: 2rem;
+      .language {
+        font-size: 1.25rem;
+        padding: 1rem 0 0 1.75rem;
+        background-color: var(--paper-listbox-background-color, initial);
       }
 
       paper-item {
-        display: list-item;
-        list-style-position: inside;
-        list-style-type: disc;
-        margin-left: 1.5rem;
+        margin-left: 2rem;
       }
 
       .sidebar-item {
@@ -54,6 +53,10 @@ export class BibleToolsDrawer extends LitElement {
 
       .sidebar-item:hover {
         cursor: pointer;
+      }
+
+      .sidebar-item:focus {
+        outline: none;
       }
     `
   }
@@ -171,7 +174,7 @@ export class BibleToolsDrawer extends LitElement {
     localStorage.setItem(`${key}-last-change`, now)
   }
 
-  _watchPreferesColorScheme() {
+  _watchPrefersColorScheme() {
     const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)')
 
     mediaQueryList.addListener(event => {
@@ -192,7 +195,7 @@ export class BibleToolsDrawer extends LitElement {
 
   firstUpdated() {
     this._keepInSync()
-    this._watchPreferesColorScheme()
+    this._watchPrefersColorScheme()
     this._enableTheme(this._getThemeFromStorage() || this._getThemeFromBrowser() || this._getThemeFromTime(), false)
   }
 
@@ -200,30 +203,42 @@ export class BibleToolsDrawer extends LitElement {
     return html`
       <div class="drawer-container">
         <div class="drawer-header">Theme</div>
-        <div class="sidebar-item">
-          <paper-item id="theme-light-paper-item" @click=${() => this._enableTheme('light', true)}>Light</paper-item>
-        </div>
-        <div class="sidebar-item">
-          <paper-item id="theme-dark-paper-item" @click=${() => this._enableTheme('dark', true)}>Dark</paper-item>
-        </div>
+        <paper-listbox>
+          <div class="sidebar-item">
+            <paper-item id="theme-light-paper-item" @click=${()=> this._enableTheme('light', true)}>Light</paper-item>
+          </div>
+          <div class="sidebar-item">
+            <paper-item id="theme-dark-paper-item" @click=${()=> this._enableTheme('dark', true)}>Dark</paper-item>
+          </div>
+        </paper-listbox>
         <div class="drawer-header">Translations</div>
-        <div class="sidebar-item">
-          <p class="item-title">English</p>
-          <paper-item @click=${this._handleTranslationChange({ language: 'en', version: 'ASV' })}>ASV</paper-item>
-          <paper-item @click=${this._handleTranslationChange({ language: 'en', version: 'KJV' })}>KJV</paper-item>
-        </div>
-        <div class="sidebar-item">
-          <p class="item-title">French</p>
-          <paper-item @click=${this._handleTranslationChange({ language: 'fr', version: 'FreSegond' })}>FreSegond</paper-item>
-        </div>
-        <div class="sidebar-item">
-          <p class="item-title">German</p>
-          <paper-item @click=${this._handleTranslationChange({ language: 'de', version: 'GerElb1905' })}>GerElb1905</paper-item>
-        </div>
-        <div class="sidebar-item">
-          <p class="item-title">Spanish</p>
-          <paper-item @click=${this._handleTranslationChange({ language: 'es', version: 'SpaRV' })}>SpaRV</paper-item>
-        </div>
+        <div class="language">English</div>
+        <paper-listbox>
+          <div class="sidebar-item">
+            <paper-item @click=${this._handleTranslationChange({ language: 'en' , version: 'ASV' })}>ASV</paper-item>
+            <paper-item @click=${this._handleTranslationChange({ language: 'en' , version: 'KJV' })}>KJV</paper-item>
+          </div>
+        </paper-listbox>
+        <div class="language">French</div>
+        <paper-listbox>
+          <div class="sidebar-item">
+            <paper-item @click=${this._handleTranslationChange({ language: 'fr' , version: 'FreSegond' })}>FreSegond
+            </paper-item>
+          </div>
+        </paper-listbox>
+        <div class="language">German</div>
+        <paper-listbox>
+          <div class="sidebar-item">
+            <paper-item @click=${this._handleTranslationChange({ language: 'de' , version: 'GerElb1905' })}>GerElb1905
+            </paper-item>
+          </div>
+        </paper-listbox>
+        <div class="language">Spanish</div>
+        <paper-listbox>
+          <div class="sidebar-item">
+            <paper-item @click=${this._handleTranslationChange({ language: 'es' , version: 'SpaRV' })}>SpaRV</paper-item>
+          </div>
+        </paper-listbox>
       </div>
     `
   }

@@ -54,7 +54,7 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       /* lg, large: 1280px */
       @media (min-width: 1280px) {
         bible-tools-single-chapter-range {
-          max-width: 33%;
+          max-width: 50%;
         }
       }
 
