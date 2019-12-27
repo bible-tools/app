@@ -30,6 +30,11 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
         text-align: center;
       }
 
+      .verseNotFound {
+        text-align: center;
+        width: 100%;
+      }
+
       /* xs, extra-small: 0px */
       @media (min-width: 0px) {
         bible-tools-single-chapter-range {
@@ -59,7 +64,8 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       }
 
       /* xl, extra-large: 1920px */
-      @media (min-width: 1920px) {}
+      @media (min-width: 1920px) {
+      }
     `
   }
 
@@ -68,16 +74,12 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
 
     this.book = 'Genesis'
     this.chapter = '1'
+    this.chapters = []
+    this.verseNotFound = false
   }
 
   static get properties() {
     return {
-      language: {
-        type: String
-      },
-      version: {
-        type: String
-      },
       book: {
         reflect: false,
         type: String
@@ -86,18 +88,33 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
         reflect: false,
         type: String
       },
+      chapters: {
+        reflect: false,
+        type: Object
+      },
       endverse: {
         reflect: false,
         type: String
       },
-      reference: {
+      language: {
         reflect: false,
-        type: Object
+        type: String
+      },
+      version: {
+        reflect: false,
+        type: String
+      },
+      verseNotFound: {
+        reflect: false,
+        type: Boolean
       }
     }
   }
 
   stateChanged(state) {
+    this.book = state.book.current
+    this.chapter = state.chapter.current
+
     const routeInfo = state.router.activeRoute.replace(state.site.path, '').split('/')
 
     const bookFromRoute = routeInfo[1] ? routeInfo[1] : undefined
@@ -109,38 +126,39 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
     }
 
     if (this.book && this.chapter) {
-      let chapters
+      try {
+        this.chapters = state.reference.books[this.book].chapters
+      } catch (e) {}
 
       try {
-        chapters = state.reference.books[this.book].chapters
+        this.endverse = this.chapters[this.chapter].verses
       } catch(e) {
-        return
+        this.verseNotFound = true
       }
 
-      this.endverse = chapters[this.chapter].verses
       this.language = state.translation.language.current
       this.version = state.translation.version.current
     }
   }
 
   render() {
-    return html`
-      <bible-tools-chapter-navigator
-        navigatorType="backward"
-      ></bible-tools-chapter-navigator>
-      <bible-tools-single-chapter-range
-        hasreference
-        language="${this.language}"
-        version="${this.version}"
-        book="${this.book}"
-        chapter="${this.chapter}"
-        startverse="1"
-        endverse="${this.endverse}"
-      ></bible-tools-single-chapter-range>
-      <bible-tools-chapter-navigator
-        navigatorType="forward"
-      ></bible-tools-chapter-navigator>
-    `
+    return !this.verseNotFound
+      ? html`
+        <bible-tools-chapter-navigator navigatorType="backward"></bible-tools-chapter-navigator>
+        <bible-tools-single-chapter-range
+          hasreference
+          language="${this.language}"
+          version="${this.version}"
+          book="${this.book}"
+          chapter="${this.chapter}"
+          startverse="1"
+          endverse="${this.endverse}"
+        ></bible-tools-single-chapter-range>
+        <bible-tools-chapter-navigator navigatorType="forward"></bible-tools-chapter-navigator>
+      `
+      : html`
+        <p class="verseNotFound">The passage was not found in the current translation.</p>
+      `
   }
 }
 

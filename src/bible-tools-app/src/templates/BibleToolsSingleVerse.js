@@ -8,20 +8,34 @@ import { unsafeHTML } from 'lit-html/directives/unsafe-html.js'
 export const BibleToolsSingleVerse = ({ hasReference, hasVerse, isBlock, name, text, verse }) => {
   return isBlock
     ? html`
-      <article>
-        ${hasReference ? html`<h1 class="reference">${name}</h1>` : ''}
         <article>
-          ${
-            hasVerse
-              ? html`<span>(${verse}) <span class="text">${unsafeHTML(text)}</span></span>`
-              : html`<span class="text">${text}</span>`
-          }
+          ${hasReference
+            ? html`
+                <h1 class="reference">${name}</h1>
+              `
+            : ''}
+          <article>
+            ${hasVerse
+              ? html`
+                  <span>(${verse}) <span class="text">${unsafeHTML(text)}</span></span>
+                `
+              : html`
+                  <span class="text">${text}</span>
+                `}
+          </article>
         </article>
-      </article>
-    `
+      `
     : html`
-      ${hasReference ? html`<span class="reference">${name}</span>` : ''}
-      ${hasVerse ? html`<span>(${verse})</span>` : ''}
-      <span class="text">${unsafeHTML(text)}</span>
-    `
+        ${hasReference
+          ? html`
+              <span class="reference">${name}</span>
+            `
+          : ''}
+        ${hasVerse
+          ? html`
+              <span>(${verse})</span>
+            `
+          : ''}
+        <span class="text">${unsafeHTML(text)}</span>
+      `
 }

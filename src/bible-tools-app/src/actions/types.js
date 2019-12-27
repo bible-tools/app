@@ -11,3 +11,5 @@ export const LOAD_CHAPTER = 'LOAD_CHAPTER'
 export const LOAD_BOOK = 'LOAD_BOOK'
 
 export const SET_SITE_PATH = 'SET_SITE_PATH'
+export const SET_SITE_BRAND_PATH = 'SET_SITE_BRAND_PATH'
+export const SET_SITE_TITLE = 'SET_SITE_TITLE'

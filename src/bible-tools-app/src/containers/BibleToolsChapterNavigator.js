@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit-element'
-import { defineCustomElement, getUrlWithTrailingSlash } from '../utilities'
+import { defineCustomElement } from '../utilities'
 
 import { connect } from 'pwa-helpers/connect-mixin'
 import { store } from '../store/configureStore'
@@ -7,8 +7,6 @@ import { store } from '../store/configureStore'
 import { loadBook, loadChapter, navigateByPath } from '../dispatchers/dispatchers'
 
 export class BibleToolsChapterNavigator extends connect(store)(LitElement) {
-  _path = getUrlWithTrailingSlash(document.querySelector('base').href)
-
   static get styles() {
     return css`
       :host {
@@ -32,27 +30,56 @@ export class BibleToolsChapterNavigator extends connect(store)(LitElement) {
         reflect: false,
         type: String
       },
+      chapters: {
+        reflect: false,
+        type: Object
+      },
       navigatorType: {
         reflect: false,
         type: String
       },
-      reference: {
+      sitePath: {
         reflect: false,
-        type: Object
+        type: String
       }
     }
+  }
+
+  constructor() {
+    super()
+
+    this.book = 'Genesis'
+    this.chapter = '1'
+    this.chapters = []
   }
 
   stateChanged(state) {
     this.book = state.book.current
     this.chapter = state.chapter.current
-    this.reference = state.reference
+
+    this.sitePath = state.site.path
+
+    const routeInfo = state.router.activeRoute.replace(state.site.path, '').split('/')
+
+    const bookFromRoute = routeInfo[1] ? routeInfo[1] : undefined
+    const chapterFromRoute = routeInfo[2] ? routeInfo[2] : undefined
+
+    if (bookFromRoute && chapterFromRoute) {
+      this.book = bookFromRoute
+      this.chapter = chapterFromRoute
+    }
+
+    if (this.book && this.chapter) {
+      try {
+        this.chapters = state.reference.books[this.book].chapters
+      } catch (e) {}
+    }
   }
 
   getNextChapter() {
     let nextChapter
 
-    const chapterLength = Object.keys(this.reference.books[this.book].chapters).length
+    const chapterLength = Object.keys(this.chapters).length
     const currentChapter = Number(this.chapter)
 
     if (this.navigatorType === 'forward') {
@@ -73,12 +100,15 @@ export class BibleToolsChapterNavigator extends connect(store)(LitElement) {
 
     loadChapter(nextChapter)
     loadBook(this.book)
-    navigateByPath(`${this._path}bible/${this.book}/${nextChapter}`)
+    navigateByPath(`${this.sitePath}bible/${this.book}/${nextChapter}`)
   }
 
   render() {
     return html`
-      <div class="click-target" @click="${() => this.handleNavigate()}"></div>
+      <div
+        class="click-target"
+        @click="${() => this.handleNavigate()}"
+      ></div>
     `
   }
 }

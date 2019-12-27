@@ -34,17 +34,18 @@ export const defineCustomElement = (tagName, element) => {
 export const lookupSlugFromConfig = (slug, config) => {
   let contentPost = undefined
 
-  config.sites.find(site => site.content.find(content => {
-    if (content.slug === slug) {
-      contentPost = [ { apiHost: site.apiHost, content }]
-    }
-  }))
+  config.sites.find(site =>
+    site.content.find(content => {
+      if (content.slug === slug) {
+        contentPost = [{ apiHost: site.apiHost, content }]
+      }
+    })
+  )
 
   return contentPost
 }
 
-export const getUrlWithTrailingSlash = url =>
-  `${new URL(url).pathname}/`.replace(/\/+\//g, '/')
+export const getUrlWithTrailingSlash = url => `${new URL(url).pathname}/`.replace(/\/+\//g, '/')
 
 export const getLastPathSegment = () => {
   const match = window.location.pathname.match(/\/([a-z0-9_-]*[\/]?)$/)

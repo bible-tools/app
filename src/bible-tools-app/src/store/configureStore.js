@@ -17,13 +17,23 @@ import thunk from 'redux-thunk'
 // enable logging in development
 const configureStore =
   process.env.NODE_ENV === 'development'
-    ? preloadedState => createStore(state => state, preloadedState, compose(lazyReducerEnhancer(combineReducers), applyMiddleware(logger, thunk)))
-    : preloadedState => createStore(state => state, preloadedState, compose(lazyReducerEnhancer(combineReducers), applyMiddleware(thunk)))
+    ? preloadedState =>
+        createStore(
+          state => state,
+          preloadedState,
+          compose(lazyReducerEnhancer(combineReducers), applyMiddleware(logger, thunk))
+        )
+    : preloadedState =>
+        createStore(
+          state => state,
+          preloadedState,
+          compose(lazyReducerEnhancer(combineReducers), applyMiddleware(thunk))
+        )
 
 const persistedState = loadState()
 const store = configureStore({ ...initialState, ...persistedState })
 
-store.addReducers({book, chapter, reference, site, translation })
+store.addReducers({ book, chapter, reference, site, translation })
 
 store.subscribe(
   throttle(() => {

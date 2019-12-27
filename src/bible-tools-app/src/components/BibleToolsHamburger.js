@@ -32,9 +32,7 @@ export class BibleToolsHamburger extends LitElement {
   }
 
   _handleHamburgerClick(event) {
-    this.shadowRoot.dispatchEvent(
-      BibleToolsDrawerToggle(event)
-    )
+    this.shadowRoot.dispatchEvent(BibleToolsDrawerToggle(event))
   }
 
   render() {

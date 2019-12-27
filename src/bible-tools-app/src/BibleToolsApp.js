@@ -5,17 +5,9 @@ import '@polymer/app-layout/app-drawer/app-drawer'
 import '@polymer/app-layout/app-header/app-header'
 import '@polymer/app-layout/app-toolbar/app-toolbar'
 
-import '@polymer/paper-dropdown-menu/paper-dropdown-menu-light.js'
-import '@polymer/paper-item/paper-item.js'
-import '@polymer/paper-listbox/paper-listbox.js'
-
-import './containers/BibleToolsBranding'
 import './components/BibleToolsDrawer'
 import './components/BibleToolsHamburger'
-
-import './containers/BibleToolsChapterNavigator'
-import './containers/BibleToolsChapterRangeView'
-import './containers/BibleToolsMenu'
+import './components/BibleToolsTheme'
 
 import { getUrlWithTrailingSlash } from './utilities'
 import {
@@ -95,35 +87,7 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
   static get properties() {
     return {
-      book: {
-        reflect: false,
-        type: String
-      },
-      chapter: {
-        reflect: false,
-        type: String
-      },
-      endverse: {
-        reflect: false,
-        type: String
-      },
-      language: {
-        reflect: false,
-        type: String
-      },
       sitePath: {
-        reflect: false,
-        type: String
-      },
-      version: {
-        reflect: false,
-        type: String
-      },
-      siteTitle: {
-        reflect: false,
-        type: String
-      },
-      siteUrl: {
         reflect: false,
         type: String
       }
@@ -164,10 +128,29 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
   render() {
     return html`
+      <bible-tools-theme></bible-tools-theme>
       <app-header reveals>
         <app-toolbar>
           <bible-tools-hamburger>Menu</bible-tools-hamburger>
-          <bible-tools-menu></bible-tools-menu>
+
+          <lit-route
+            .resolve="${() => import('./containers/BibleToolsMenu')}"
+            component="bible-tools-menu"
+            path="${this.sitePath}"
+          >
+          </lit-route>
+
+          <lit-route
+            .resolve="${() => import('./containers/BibleToolsMenu')}"
+            component="bible-tools-menu"
+            path="${this.sitePath}bible/:book/:chapter"
+          ></lit-route>
+
+          <lit-route
+            .resolve="${() => import('./containers/BibleToolsBranding')}"
+            component="bible-tools-branding"
+            path="${this.sitePath}preferences"
+          ></lit-route>
         </app-toolbar>
       </app-header>
 
@@ -177,14 +160,23 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
       <!-- book, chapter, startverse, endverse -->
       <div class="app-content">
-        <lit-route path="${this.sitePath}">
-          <bible-tools-chapter-range-view
-          ></bible-tools-chapter-range-view>
+        <lit-route
+          .resolve="${() => import ('./containers/BibleToolsChapterRangeView')}"
+          component="bible-tools-chapter-range-view"
+          path="${this.sitePath}"
+        >
         </lit-route>
 
         <lit-route
+          .resolve="${() => import ('./containers/BibleToolsChapterRangeView')}"
           component="bible-tools-chapter-range-view"
           path="${this.sitePath}bible/:book/:chapter"
+        ></lit-route>
+
+        <lit-route
+          .resolve="${() => import('./containers/BibleToolsPreferences')}"
+          component="bible-tools-preferences"
+          path="${this.sitePath}preferences"
         ></lit-route>
 
         <lit-route><h1>404 Not found</h1></lit-route>

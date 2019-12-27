@@ -6,7 +6,9 @@ import {
   LOAD_REFERENCE_REQUEST,
   LOAD_REFERENCE_SUCCESS,
   LOAD_REFERENCE_FAILURE,
-  SET_SITE_PATH
+  SET_SITE_PATH,
+  SET_SITE_BRAND_PATH,
+  SET_SITE_TITLE
 } from './types'
 
 // action creators
@@ -49,4 +51,14 @@ export const loadChapter = chapter => ({
 export const setSitePath = path => ({
   type: SET_SITE_PATH,
   payload: path
+})
+
+export const setSiteBrandPath = brandPath => ({
+  type: SET_SITE_BRAND_PATH,
+  payload: brandPath
+})
+
+export const setSiteTitle = title => ({
+  type: SET_SITE_TITLE,
+  payload: title
 })

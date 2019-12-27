@@ -7,7 +7,9 @@ import {
   loadChapter as loadChapterCreator,
   loadVersion as loadVersionCreator,
   loadLanguage as loadLanguageCreator,
-  setSitePath as setSitePathCreator
+  setSitePath as setSitePathCreator,
+  setSiteBrandPath as setSiteBrandPathCreator,
+  setSiteTitle as setSiteTitleCreator
 } from '../actions/creators'
 
 import { loadReference as loadReferenceCreator } from '../actions/thunks'
@@ -19,5 +21,7 @@ export const loadReference = (language, version) => store.dispatch(loadReference
 export const loadVersion = version => store.dispatch(loadVersionCreator(version))
 
 export const setSitePath = path => store.dispatch(setSitePathCreator(path))
+export const setSiteBrandPath = brandPath => store.dispatch(setSiteBrandPathCreator(brandPath))
+export const setSiteTitle = path => store.dispatch(setSiteTitleCreator(path))
 
 export const navigateByPath = path => store.dispatch(navigate(path))

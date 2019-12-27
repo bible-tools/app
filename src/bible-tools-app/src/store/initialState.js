@@ -1,6 +1,7 @@
 export default {
-  root: {
-    path: '/'
+  site: {
+    path: '/',
+    title: 'Bible Tools'
   },
   translation: {
     language: {
@@ -11,14 +12,14 @@ export default {
     }
   },
   chapter: {
-    current: '1',
+    current: '1'
   },
   book: {
-    current: 'Genesis',
+    current: 'Genesis'
   },
   reference: {
     books: {
-      'Genesis': {
+      Genesis: {
         chapters: {
           1: {
             verses: 31
@@ -172,7 +173,7 @@ export default {
           }
         }
       },
-      'Exodus': {
+      Exodus: {
         chapters: {
           1: {
             verses: 22
@@ -296,7 +297,7 @@ export default {
           }
         }
       },
-      'Leviticus': {
+      Leviticus: {
         chapters: {
           1: {
             verses: 17
@@ -381,7 +382,7 @@ export default {
           }
         }
       },
-      'Numbers': {
+      Numbers: {
         chapters: {
           1: {
             verses: 54
@@ -493,7 +494,7 @@ export default {
           }
         }
       },
-      'Deuteronomy': {
+      Deuteronomy: {
         chapters: {
           1: {
             verses: 46
@@ -599,7 +600,7 @@ export default {
           }
         }
       },
-      'Joshua': {
+      Joshua: {
         chapters: {
           1: {
             verses: 18
@@ -675,7 +676,7 @@ export default {
           }
         }
       },
-      'Judges': {
+      Judges: {
         chapters: {
           1: {
             verses: 36
@@ -742,7 +743,7 @@ export default {
           }
         }
       },
-      'Ruth': {
+      Ruth: {
         chapters: {
           1: {
             verses: 22
@@ -1283,7 +1284,7 @@ export default {
           }
         }
       },
-      'Ezra': {
+      Ezra: {
         chapters: {
           1: {
             verses: 11
@@ -1317,7 +1318,7 @@ export default {
           }
         }
       },
-      'Nehemiah': {
+      Nehemiah: {
         chapters: {
           1: {
             verses: 11
@@ -1360,7 +1361,7 @@ export default {
           }
         }
       },
-      'Esther': {
+      Esther: {
         chapters: {
           1: {
             verses: 22
@@ -1394,7 +1395,7 @@ export default {
           }
         }
       },
-      'Job': {
+      Job: {
         chapters: {
           1: {
             verses: 22
@@ -1524,7 +1525,7 @@ export default {
           }
         }
       },
-      'Psalms': {
+      Psalms: {
         chapters: {
           1: {
             verses: 6
@@ -1978,7 +1979,7 @@ export default {
           }
         }
       },
-      'Proverbs': {
+      Proverbs: {
         chapters: {
           1: {
             verses: 33
@@ -2075,7 +2076,7 @@ export default {
           }
         }
       },
-      'Ecclesiastes': {
+      Ecclesiastes: {
         chapters: {
           1: {
             verses: 18
@@ -2143,7 +2144,7 @@ export default {
           }
         }
       },
-      'Isaiah': {
+      Isaiah: {
         chapters: {
           1: {
             verses: 31
@@ -2345,7 +2346,7 @@ export default {
           }
         }
       },
-      'Jeremiah': {
+      Jeremiah: {
         chapters: {
           1: {
             verses: 19
@@ -2505,7 +2506,7 @@ export default {
           }
         }
       },
-      'Lamentations': {
+      Lamentations: {
         chapters: {
           1: {
             verses: 22
@@ -2524,7 +2525,7 @@ export default {
           }
         }
       },
-      'Ezekiel': {
+      Ezekiel: {
         chapters: {
           1: {
             verses: 28
@@ -2672,7 +2673,7 @@ export default {
           }
         }
       },
-      'Daniel': {
+      Daniel: {
         chapters: {
           1: {
             verses: 21
@@ -2712,7 +2713,7 @@ export default {
           }
         }
       },
-      'Hosea': {
+      Hosea: {
         chapters: {
           1: {
             verses: 11
@@ -2758,7 +2759,7 @@ export default {
           }
         }
       },
-      'Joel': {
+      Joel: {
         chapters: {
           1: {
             verses: 20
@@ -2771,7 +2772,7 @@ export default {
           }
         }
       },
-      'Amos': {
+      Amos: {
         chapters: {
           1: {
             verses: 15
@@ -2802,14 +2803,14 @@ export default {
           }
         }
       },
-      'Obadiah': {
+      Obadiah: {
         chapters: {
           1: {
             verses: 21
           }
         }
       },
-      'Jonah': {
+      Jonah: {
         chapters: {
           1: {
             verses: 17
@@ -2825,7 +2826,7 @@ export default {
           }
         }
       },
-      'Micah': {
+      Micah: {
         chapters: {
           1: {
             verses: 16
@@ -2850,7 +2851,7 @@ export default {
           }
         }
       },
-      'Nahum': {
+      Nahum: {
         chapters: {
           1: {
             verses: 15
@@ -2863,7 +2864,7 @@ export default {
           }
         }
       },
-      'Habakkuk': {
+      Habakkuk: {
         chapters: {
           1: {
             verses: 17
@@ -2876,7 +2877,7 @@ export default {
           }
         }
       },
-      'Zephaniah': {
+      Zephaniah: {
         chapters: {
           1: {
             verses: 18
@@ -2889,7 +2890,7 @@ export default {
           }
         }
       },
-      'Haggai': {
+      Haggai: {
         chapters: {
           1: {
             verses: 15
@@ -2899,7 +2900,7 @@ export default {
           }
         }
       },
-      'Zechariah': {
+      Zechariah: {
         chapters: {
           1: {
             verses: 21
@@ -2945,7 +2946,7 @@ export default {
           }
         }
       },
-      'Malachi': {
+      Malachi: {
         chapters: {
           1: {
             verses: 14
@@ -2961,7 +2962,7 @@ export default {
           }
         }
       },
-      'Matthew': {
+      Matthew: {
         chapters: {
           1: {
             verses: 25
@@ -3049,7 +3050,7 @@ export default {
           }
         }
       },
-      'Mark': {
+      Mark: {
         chapters: {
           1: {
             verses: 45
@@ -3101,7 +3102,7 @@ export default {
           }
         }
       },
-      'Luke': {
+      Luke: {
         chapters: {
           1: {
             verses: 80
@@ -3177,7 +3178,7 @@ export default {
           }
         }
       },
-      'John': {
+      John: {
         chapters: {
           1: {
             verses: 51
@@ -3244,7 +3245,7 @@ export default {
           }
         }
       },
-      'Acts': {
+      Acts: {
         chapters: {
           1: {
             verses: 26
@@ -3332,7 +3333,7 @@ export default {
           }
         }
       },
-      'Romans': {
+      Romans: {
         chapters: {
           1: {
             verses: 32
@@ -3479,7 +3480,7 @@ export default {
           }
         }
       },
-      'Galatians': {
+      Galatians: {
         chapters: {
           1: {
             verses: 24
@@ -3501,7 +3502,7 @@ export default {
           }
         }
       },
-      'Ephesians': {
+      Ephesians: {
         chapters: {
           1: {
             verses: 23
@@ -3523,7 +3524,7 @@ export default {
           }
         }
       },
-      'Philippians': {
+      Philippians: {
         chapters: {
           1: {
             verses: 30
@@ -3539,7 +3540,7 @@ export default {
           }
         }
       },
-      'Colossians': {
+      Colossians: {
         chapters: {
           1: {
             verses: 29
@@ -3625,7 +3626,7 @@ export default {
           }
         }
       },
-      'Titus': {
+      Titus: {
         chapters: {
           1: {
             verses: 16
@@ -3638,14 +3639,14 @@ export default {
           }
         }
       },
-      'Philemon': {
+      Philemon: {
         chapters: {
           1: {
             verses: 25
           }
         }
       },
-      'Hebrews': {
+      Hebrews: {
         chapters: {
           1: {
             verses: 14
@@ -3688,7 +3689,7 @@ export default {
           }
         }
       },
-      'James': {
+      James: {
         chapters: {
           1: {
             verses: 27
@@ -3772,7 +3773,7 @@ export default {
           }
         }
       },
-      'Jude': {
+      Jude: {
         chapters: {
           1: {
             verses: 25
@@ -3853,7 +3854,6 @@ export default {
   },
   router: {
     activeRoute: '/',
-    routes: {
-    }
+    routes: {}
   }
 }

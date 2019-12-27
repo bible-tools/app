@@ -35,7 +35,7 @@ export class BibleToolsSingleVerse extends LitElement {
       },
       verse: {
         type: String
-      },
+      }
     }
   }
 
@@ -74,30 +74,45 @@ export class BibleToolsSingleVerse extends LitElement {
     this.hasVerse = false
     this.isBlock = false
 
-    this.book="John"
-    this.chapter="3"
-    this.host="https://bible-tools.github.io/data/translations"
-    this.language="en"
-    this.version="KJV"
-    this.verse="16"
+    this.book = 'John'
+    this.chapter = '3'
+    this.host = 'https://bible-tools.github.io/data/translations'
+    this.language = 'en'
+    this.version = 'KJV'
+    this.verse = '16'
   }
 
   render() {
-    const url = this.host + '/' + this.language + '/' +
-      this.version + '/' + this.book + '/' + this.chapter +
-      '/' + this.verse + '/index.json'
+    const url =
+      this.host +
+      '/' +
+      this.language +
+      '/' +
+      this.version +
+      '/' +
+      this.book +
+      '/' +
+      this.chapter +
+      '/' +
+      this.verse +
+      '/index.json'
 
     return html`
-      ${until(fetch(url).then(res => {
-        if (res.ok) {
-          return res.json().then(json => BibleToolsSingleVerseTemplate({
-            hasReference: this.hasReference,
-            hasVerse: this.hasVerse,
-            isBlock: this.isBlock,
-            ...json
-          }))
-        }
-      }), Loading(this.isBlock))}
+      ${until(
+        fetch(url).then(res => {
+          if (res.ok) {
+            return res.json().then(json =>
+              BibleToolsSingleVerseTemplate({
+                hasReference: this.hasReference,
+                hasVerse: this.hasVerse,
+                isBlock: this.isBlock,
+                ...json
+              })
+            )
+          }
+        }),
+        Loading(this.isBlock)
+      )}
     `
   }
 }

@@ -1,16 +1,17 @@
 import { LitElement, css, html } from 'lit-element'
-import { defineCustomElement, getUrlWithTrailingSlash } from '../utilities'
+import { defineCustomElement } from '../utilities'
 
 import '@polymer/paper-listbox/paper-listbox'
 import '@polymer/paper-item/paper-item'
 
-import { loadBook, loadChapter, loadLanguage, loadReference, loadVersion, navigateByPath } from '../dispatchers/dispatchers'
+import { connect } from 'pwa-helpers/connect-mixin'
+import { store } from '../store/configureStore'
 
-import { BibleToolsDrawerClose, BibleToolsDrawerToggle } from '../events/events'
+import { navigateByPath, setSiteBrandPath, setSiteTitle } from '../dispatchers/dispatchers'
 
-export class BibleToolsDrawer extends LitElement {
-  _path = getUrlWithTrailingSlash(document.querySelector('base').href)
+import { BibleToolsDrawerToggle } from '../events/events'
 
+export class BibleToolsDrawer extends connect(store)(LitElement) {
   static get styles() {
     return css`
       .drawer-container {
@@ -37,6 +38,11 @@ export class BibleToolsDrawer extends LitElement {
         padding: 1rem;
       }
 
+      .drawer-header a {
+        text-decoration: none;
+        color: var(--bible-tools-drawer-header-color, initial);
+      }
+
       .language {
         font-size: 1.25rem;
         padding: 1rem 0 0 1.75rem;
@@ -61,182 +67,51 @@ export class BibleToolsDrawer extends LitElement {
     `
   }
 
-  _enableTheme(newTheme = 'light', withTransition = false, persist = true) {
-    const html = document.documentElement
-
-    let otherTheme
-    if (newTheme === 'light') {
-      otherTheme = 'dark'
-    } else {
-      otherTheme = 'light'
-    }
-
-    html.classList.add(`theme-${newTheme}`)
-    html.classList.remove(`theme-${otherTheme}`)
-
-    let paperItem = this.shadowRoot.getElementById(`theme-${otherTheme}-paper-item`)
-
-    paperItem.classList.add('enabled')
-    paperItem.setAttribute('aria-pressed', false)
-
-    paperItem = this.shadowRoot.getElementById(`theme-${newTheme}-paper-item`)
-    paperItem.classList.remove('enabled')
-    paperItem.setAttribute('aria-pressed', true)
-
-    this.shadowRoot.dispatchEvent(
-      BibleToolsDrawerClose()
-    )
-
-    if (persist) {
-      this._persistToStorage('preference-theme', newTheme)
-    }
-  }
-
-  _getThemeFromBrowser() {
-    let mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)')
-
-    if (mediaQueryList.matches) {
-      return 'dark'
-    } else {
-      mediaQueryList = window.matchMedia('(prefers-color-scheme: light)')
-
-      if (mediaQueryList.matches) {
-        return 'light'
-      } else {
-        return undefined
+  static get properties() {
+    return {
+      sitePath: {
+        reflect: false,
+        type: String
+      },
+      drawerTitle: {
+        reflect: false,
+        type: String
       }
     }
   }
 
-  _getThemeFromStorage() {
-    const pref = localStorage.getItem('preference-theme')
-    const lastChanged = localStorage.getItem('preference-theme-last-change')
+  constructor() {
+    super()
 
-    let now = new Date()
-    now = now.getTime()
-
-    const minutesPassed = (now - lastChanged) / (1000 * 60)
-
-    if (minutesPassed < 120 && pref === 'light') {
-      return 'light'
-    } else if (minutesPassed < 120 && pref === 'dark') {
-      return 'dark'
-    } else {
-      return undefined
-    }
+    this.drawerTitle = 'Bible Tools'
   }
 
-  _getThemeFromTime() {
-    const date = new Date
-    const hour = date.getHours()
-
-    if (hour > 20 || hour < 5) {
-      return 'dark'
-    } else {
-      return 'light'
-    }
-  }
-
-  _handleTranslationChange({ language, version }) {
-    return event => {
-      const book = 'Genesis'
-      const chapter = '1'
-
-      loadChapter(chapter)
-      loadBook(book)
-      navigateByPath(`${this._path}bible/${book}/${chapter}`)
-
-      loadReference(language, version)
-      loadLanguage(language)
-      loadVersion(version)
-
-      this.shadowRoot.dispatchEvent(BibleToolsDrawerToggle())
-    }
-  }
-
-  _keepInSync() {
-    window.addEventListener('storage', event => {
-      if (event.key === 'preference-theme') {
-        if (event.newValue === 'light') {
-          this._enableTheme('light', true, false)
-        } else if (event.newValue === 'dark') {
-          this._enableTheme('dark', true, false)
-        }
-      }
-    })
-  }
-
-  _persistToStorage(key, value) {
-    let now = new Date()
-    now = now.getTime()
-
-    localStorage.setItem(key, value)
-    localStorage.setItem(`${key}-last-change`, now)
-  }
-
-  _watchPrefersColorScheme() {
-    const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)')
-
-    mediaQueryList.addListener(event => {
-      const root = document.documentElement
-
-      if (event.matches !== true) {
-        if (!root.classList.contains('theme-light')) {
-          this._enableTheme('light', true)
-        }
-      }
-      else {
-        if (!root.classList.contains('theme-dark')) {
-          this._enableTheme('dark', true)
-        }
-      }
-    })
-  }
-
-  firstUpdated() {
-    this._keepInSync()
-    this._watchPrefersColorScheme()
-    this._enableTheme(this._getThemeFromStorage() || this._getThemeFromBrowser() || this._getThemeFromTime(), false)
+  stateChanged(state) {
+    this.sitePath = state.site.path
   }
 
   render() {
+    const navToReader = (that, title, path) => () => {
+      that.shadowRoot.dispatchEvent(BibleToolsDrawerToggle())
+
+      setSiteTitle(title)
+      setSiteBrandPath(path)
+      navigateByPath(`${that.sitePath}${path}`)
+    }
+
     return html`
       <div class="drawer-container">
-        <div class="drawer-header">Theme</div>
+        <div class="drawer-header">
+          <a href="${this.sitePath}" @click=${navToReader(this, 'Bible Tools', '')}>${this.drawerTitle}</a>
+        </div>
         <paper-listbox>
           <div class="sidebar-item">
-            <paper-item id="theme-light-paper-item" @click=${()=> this._enableTheme('light', true)}>Light</paper-item>
-          </div>
-          <div class="sidebar-item">
-            <paper-item id="theme-dark-paper-item" @click=${()=> this._enableTheme('dark', true)}>Dark</paper-item>
-          </div>
-        </paper-listbox>
-        <div class="drawer-header">Translations</div>
-        <div class="language">English</div>
-        <paper-listbox>
-          <div class="sidebar-item">
-            <paper-item @click=${this._handleTranslationChange({ language: 'en' , version: 'ASV' })}>ASV</paper-item>
-            <paper-item @click=${this._handleTranslationChange({ language: 'en' , version: 'KJV' })}>KJV</paper-item>
+            <paper-item @click=${navToReader(this, 'Bible Tools', '')}>Reader</paper-item>
           </div>
         </paper-listbox>
-        <div class="language">French</div>
         <paper-listbox>
           <div class="sidebar-item">
-            <paper-item @click=${this._handleTranslationChange({ language: 'fr' , version: 'FreSegond' })}>FreSegond
-            </paper-item>
-          </div>
-        </paper-listbox>
-        <div class="language">German</div>
-        <paper-listbox>
-          <div class="sidebar-item">
-            <paper-item @click=${this._handleTranslationChange({ language: 'de' , version: 'GerElb1905' })}>GerElb1905
-            </paper-item>
-          </div>
-        </paper-listbox>
-        <div class="language">Spanish</div>
-        <paper-listbox>
-          <div class="sidebar-item">
-            <paper-item @click=${this._handleTranslationChange({ language: 'es' , version: 'SpaRV' })}>SpaRV</paper-item>
+            <paper-item @click=${navToReader(this, 'Preferences', 'preferences')}>Preferences</paper-item>
           </div>
         </paper-listbox>
       </div>

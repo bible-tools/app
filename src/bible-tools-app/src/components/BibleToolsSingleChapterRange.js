@@ -30,7 +30,7 @@ export class BibleToolsSingleChapterRange extends LitElement {
       },
       startverse: {
         type: String
-      },
+      }
     }
   }
 
@@ -70,7 +70,7 @@ export class BibleToolsSingleChapterRange extends LitElement {
   get verserange() {
     let result = []
 
-    for (let i=Number(this.startverse); i <= Number(this.endverse); i++) {
+    for (let i = Number(this.startverse); i <= Number(this.endverse); i++) {
       result.push(i)
     }
 
@@ -80,8 +80,14 @@ export class BibleToolsSingleChapterRange extends LitElement {
   displayReference() {
     if (this.hasReference) {
       return this.isBlock
-        ? html`<h1 class="reference">${this.book}&nbsp;${this.chapter}:${this.startverse}-${this.endverse}</h1>`
-        : html`<span class="reference">${this.book}&nbsp;${this.chapter}:${this.startverse}-${this.endverse}&nbsp;-&nbsp;</span>`
+        ? html`
+            <h1 class="reference">${this.book}&nbsp;${this.chapter}:${this.startverse}-${this.endverse}</h1>
+          `
+        : html`
+            <span class="reference"
+              >${this.book}&nbsp;${this.chapter}:${this.startverse}-${this.endverse}&nbsp;-&nbsp;</span
+            >
+          `
     }
 
     return ''

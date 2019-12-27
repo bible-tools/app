@@ -29,6 +29,9 @@ bible-tools-app {
   background-color: #fff;
 
   --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --mdc-theme-text-primary-on-background: #111;
+  --mdc-theme-secondary: #111;
+  --mdc-radio-unchecked-color: #111;
   --paper-dropdown-menu-color: #000;
   --paper-dropdown-menu-focused-color: #000;
   --paper-listbox-background-color: rgba(255, 255, 255, 0.99);
@@ -52,6 +55,9 @@ bible-tools-app {
   background-color: #111;
 
   --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --mdc-theme-text-primary-on-background: #fff;
+  --mdc-theme-secondary: #fff;
+  --mdc-radio-unchecked-color: #fff;
   --paper-dropdown-menu-color: #fff;
   --paper-dropdown-menu-focused-color: #fff;
   --paper-listbox-background-color: rgba(0, 0, 0, 0.99);
