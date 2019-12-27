@@ -12,7 +12,6 @@ export class BibleToolsMenu extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
-        flex: 100;
         margin: 0 5rem 0 3.5rem;
       }
 
@@ -24,6 +23,10 @@ export class BibleToolsMenu extends connect(store)(LitElement) {
         display: flex;
         justify-content: space-between;
         min-width: 15rem;
+      }
+
+      paper-dropdown-menu-light:first-of-type {
+        margin-right: 1rem;
       }
 
       paper-dropdown-menu-light {

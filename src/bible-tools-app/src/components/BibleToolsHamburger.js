@@ -11,16 +11,16 @@ export class BibleToolsHamburger extends LitElement {
     return css`
       :host {
         display: block;
-        flex: 1;
         width: 1.5rem;
       }
 
       paper-icon-button {
+        color: var(--primary-text-color, #000);
+        height: 3rem;
+        margin-top: 0.5rem;
         pointer-events: all;
         position: relative;
-        height: 3rem;
         width: 3rem;
-        color: var(--primary-text-color, #000);
       }
 
       svg {
