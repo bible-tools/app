@@ -1,4 +1,7 @@
 export default {
+  root: {
+    path: '/'
+  },
   translation: {
     language: {
       current: 'en'
@@ -8,7 +11,7 @@ export default {
     }
   },
   chapter: {
-    current: 1,
+    current: '1',
   },
   book: {
     current: 'Genesis',

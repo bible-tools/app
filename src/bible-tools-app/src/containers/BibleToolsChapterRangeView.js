@@ -1,16 +1,16 @@
 import { LitElement, css, html } from 'lit-element'
-import { defineCustomElement, getUrlWithTrailingSlash } from '../utilities'
+import { defineCustomElement } from '../utilities'
 
 import { connect } from 'pwa-helpers/connect-mixin'
 import { store } from '../store/configureStore'
+
+import { loadBook, loadChapter } from '../dispatchers/dispatchers'
 
 import '../components/BibleToolsSingleChapterRange'
 import '../components/BibleToolsSingleVerse'
 import './BibleToolsChapterNavigator'
 
 export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
-  _path = getUrlWithTrailingSlash(document.querySelector('base').href)
-
   static get styles() {
     return css`
       :host {
@@ -63,6 +63,13 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
     `
   }
 
+  constructor() {
+    super()
+
+    this.book = 'Genesis'
+    this.chapter = '1'
+  }
+
   static get properties() {
     return {
       language: {
@@ -91,9 +98,29 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this.endverse = state.reference.books[this.book].chapters[this.chapter].verses
-    this.language = state.translation.language.current
-    this.version = state.translation.version.current
+    const routeInfo = state.router.activeRoute.replace(state.site.path, '').split('/')
+
+    const bookFromRoute = routeInfo[1] ? routeInfo[1] : undefined
+    const chapterFromRoute = routeInfo[2] ? routeInfo[2] : undefined
+
+    if (bookFromRoute && chapterFromRoute) {
+      this.book = bookFromRoute
+      this.chapter = chapterFromRoute
+    }
+
+    if (this.book && this.chapter) {
+      let chapters
+
+      try {
+        chapters = state.reference.books[this.book].chapters
+      } catch(e) {
+        return
+      }
+
+      this.endverse = chapters[this.chapter].verses
+      this.language = state.translation.language.current
+      this.version = state.translation.version.current
+    }
   }
 
   render() {

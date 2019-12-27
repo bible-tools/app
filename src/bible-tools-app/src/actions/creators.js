@@ -5,7 +5,8 @@ import {
   LOAD_CHAPTER,
   LOAD_REFERENCE_REQUEST,
   LOAD_REFERENCE_SUCCESS,
-  LOAD_REFERENCE_FAILURE
+  LOAD_REFERENCE_FAILURE,
+  SET_SITE_PATH
 } from './types'
 
 // action creators
@@ -43,4 +44,9 @@ export const loadBook = book => ({
 export const loadChapter = chapter => ({
   type: LOAD_CHAPTER,
   payload: chapter
+})
+
+export const setSitePath = path => ({
+  type: SET_SITE_PATH,
+  payload: path
 })

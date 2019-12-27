@@ -6,8 +6,10 @@ import { logger } from './middleware'
 import book from '../reducers/book'
 import chapter from '../reducers/chapter'
 import reference from '../reducers/reference'
+import site from '../reducers/site'
 import translation from '../reducers/translation'
-import initialState from '../reducers/initialState'
+
+import initialState from './initialState'
 
 import throttle from 'lodash-es/throttle'
 import thunk from 'redux-thunk'
@@ -21,7 +23,7 @@ const configureStore =
 const persistedState = loadState()
 const store = configureStore({ ...initialState, ...persistedState })
 
-store.addReducers({ book, chapter, reference, translation })
+store.addReducers({book, chapter, reference, site, translation })
 
 store.subscribe(
   throttle(() => {

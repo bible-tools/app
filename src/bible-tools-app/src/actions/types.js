@@ -9,3 +9,5 @@ export const LOAD_LANGUAGE = 'LOAD_LANGUAGE'
 export const LOAD_VERSION = 'LOAD_VERSION'
 export const LOAD_CHAPTER = 'LOAD_CHAPTER'
 export const LOAD_BOOK = 'LOAD_BOOK'
+
+export const SET_SITE_PATH = 'SET_SITE_PATH'

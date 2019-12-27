@@ -23,14 +23,14 @@ import {
   BIBLE_TOOLS_DRAWER_CLOSE
 } from './events/events'
 
+import { setSitePath } from './dispatchers/dispatchers'
+
 import { store } from './store/configureStore'
 import { connectRouter } from 'lit-redux-router'
 
 connectRouter(store)
 
 export class BibleToolsApp extends connect(store)(LitElement) {
-  _path = getUrlWithTrailingSlash(document.querySelector('base').href)
-
   static get styles() {
     return css`
       app-header {
@@ -111,6 +111,10 @@ export class BibleToolsApp extends connect(store)(LitElement) {
         reflect: false,
         type: String
       },
+      sitePath: {
+        reflect: false,
+        type: String
+      },
       version: {
         reflect: false,
         type: String
@@ -124,6 +128,12 @@ export class BibleToolsApp extends connect(store)(LitElement) {
         type: String
       }
     }
+  }
+
+  constructor() {
+    super()
+
+    setSitePath(getUrlWithTrailingSlash(document.querySelector('base').href))
   }
 
   _handleDrawerToggle(close = false) {
@@ -149,11 +159,7 @@ export class BibleToolsApp extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this.book = state.book.current
-    this.chapter = state.chapter.current
-    this.language = state.translation.language.current
-    this.version = state.translation.version.current
-    this.endverse = state.reference.books[this.book].chapters[this.chapter].verses
+    this.sitePath = state.site.path
   }
 
   render() {
@@ -171,16 +177,14 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
       <!-- book, chapter, startverse, endverse -->
       <div class="app-content">
-        <lit-route path="${this._path}">
+        <lit-route path="${this.sitePath}">
           <bible-tools-chapter-range-view
-            book="${this.book}"
-            chapter="${this.chapter}"
           ></bible-tools-chapter-range-view>
         </lit-route>
 
         <lit-route
           component="bible-tools-chapter-range-view"
-          path="${this._path}bible/:book/:chapter"
+          path="${this.sitePath}bible/:book/:chapter"
         ></lit-route>
 
         <lit-route><h1>404 Not found</h1></lit-route>
