@@ -33,15 +33,6 @@ export class BibleToolsApp extends connect(store)(LitElement) {
 
   static get styles() {
     return css`
-      #landing-chapter-view {
-        display: flex;
-        padding-top: 1rem;
-      }
-
-      .chapter-view-flex {
-        flex: auto;
-      }
-
       app-header {
         background-color: var(--primary-background-color, #000);
         color: var(--primary-foreground-color, #fff);
@@ -74,28 +65,12 @@ export class BibleToolsApp extends connect(store)(LitElement) {
         :host {
           --bible-tools-menu-drop-down-content-min-width: 7rem;
         }
-
-        bible-tools-single-chapter-range {
-          max-width: 90%;
-        }
-
-        .chapter-view-flex {
-          min-width: 5%;
-        }
       }
 
       /* sm, small: 600px */
       @media (min-width: 600px) {
         :host {
           --bible-tools-menu-drop-down-content-min-width: 11rem;
-        }
-
-        bible-tools-single-chapter-range {
-          max-width: 80%;
-        }
-
-        .chapter-view-flex {
-          min-width: 10%;
         }
       }
 
@@ -104,28 +79,12 @@ export class BibleToolsApp extends connect(store)(LitElement) {
         :host {
           --bible-tools-menu-drop-down-content-min-width: 15rem;
         }
-
-        bible-tools-single-chapter-range {
-          max-width: 60%;
-        }
-
-        .chapter-view-flex {
-          min-width: 20%;
-        }
       }
 
       /* lg, large: 1280px */
       @media (min-width: 1280px) {
         :host {
           --bible-tools-menu-drop-down-content-min-width: 20rem;
-        }
-
-        bible-tools-single-chapter-range {
-          max-width: 50%;
-        }
-
-        .chapter-view-flex {
-          min-width: 25%;
         }
       }
 
@@ -213,23 +172,10 @@ export class BibleToolsApp extends connect(store)(LitElement) {
       <!-- book, chapter, startverse, endverse -->
       <div class="app-content">
         <lit-route path="${this._path}">
-          <div id="landing-chapter-view">
-            <bible-tools-chapter-navigator
-              navigatorType="backward"
-            ></bible-tools-chapter-navigator>
-            <bible-tools-single-chapter-range
-              hasreference
-              language="${this.language}"
-              version="${this.version}"
-              book="${this.book}"
-              chapter="${this.chapter}"
-              startverse="1"
-              endverse="${this.endverse}"
-            ></bible-tools-single-chapter-range>
-            <bible-tools-chapter-navigator
-              navigatorType="forward"
-            ></bible-tools-chapter-navigator>
-          </div>
+          <bible-tools-chapter-range-view
+            book="${this.book}"
+            chapter="${this.chapter}"
+          ></bible-tools-chapter-range-view>
         </lit-route>
 
         <lit-route
