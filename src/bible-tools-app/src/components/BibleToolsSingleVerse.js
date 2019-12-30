@@ -47,22 +47,29 @@ export class BibleToolsSingleVerse extends LitElement {
 
       article h1.reference {
         color: var(--bible-tools-single-verse-reference-color);
-        font: var(--bible-tools-single-verse-reference-font, bold 1.5rem sans-serif);
+        font: var(--bible-tools-single-verse-reference-font, bold 20px sans-serif);
       }
 
       span.reference {
         color: var(--bible-tools-single-verse-reference-color);
-        font: var(--bible-tools-single-verse-reference-font, normal 1rem sans-serif);
+        font: var(--bible-tools-single-verse-reference-font, normal 16px sans-serif);
       }
 
       article > p.text {
         color: var(--bible-tools-single-verse-text-color);
-        font: var(--bible-tools-single-verse-text-font, normal 1rem sans-serif);
+        font: var(--bible-tools-single-verse-text-font, normal 16px sans-serif);
       }
 
       span.text {
         color: var(--bible-tools-single-verse-text-color);
-        font: var(--bible-tools-single-verse-text-font, normal 1rem sans-serif);
+        font: var(--bible-tools-single-verse-text-font, normal 16px sans-serif);
+      }
+
+      span.verse {
+        color: var(--bible-tools-single-verse-text-verse-color);
+        font: var(--bible-tools-single-verse-text-verse-font, normal 20px sans-serif);
+        font-size: var(--bible-tools-single-verse-text-verse-font-size, 20px);
+        vertical-align: var(--bible-tools-single-verse-text-verse-vertical-align, initial);
       }
     `
   }

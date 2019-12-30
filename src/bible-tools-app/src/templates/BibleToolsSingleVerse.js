@@ -17,7 +17,7 @@ export const BibleToolsSingleVerse = ({ hasReference, hasVerse, isBlock, name, t
           <article>
             ${hasVerse
               ? html`
-                  <span>(${verse}) <span class="text">${unsafeHTML(text)}</span></span>
+                  <span class="verse">${verse} <span class="text">${unsafeHTML(text)}</span></span>
                 `
               : html`
                   <span class="text">${text}</span>
@@ -33,7 +33,7 @@ export const BibleToolsSingleVerse = ({ hasReference, hasVerse, isBlock, name, t
           : ''}
         ${hasVerse
           ? html`
-              <span>(${verse})</span>
+              <span class="verse">${verse}</span>
             `
           : ''}
         <span class="text">${unsafeHTML(text)}</span>

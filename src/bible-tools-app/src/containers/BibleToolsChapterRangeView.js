@@ -4,11 +4,11 @@ import { defineCustomElement } from '../utilities'
 import { connect } from 'pwa-helpers/connect-mixin'
 import { store } from '../store/configureStore'
 
-import { loadBook, loadChapter } from '../dispatchers/dispatchers'
-
 import '../components/BibleToolsSingleChapterRange'
 import '../components/BibleToolsSingleVerse'
 import './BibleToolsChapterNavigator'
+
+import { getFontSizeFromString } from '../utilities'
 
 export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
   static get styles() {
@@ -52,7 +52,7 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       /* md, medium: 960px */
       @media (min-width: 960px) {
         bible-tools-single-chapter-range {
-          max-width: 60%;
+          max-width: 70%;
         }
       }
 
@@ -66,16 +66,11 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       /* xl, extra-large: 1920px */
       @media (min-width: 1920px) {
       }
+
+      bible-tools-single-chapter-range {
+        text-align: var(--bible-tools-single-chapter-range-text-align);
+      }
     `
-  }
-
-  constructor() {
-    super()
-
-    this.book = 'Genesis'
-    this.chapter = '1'
-    this.chapters = []
-    this.verseNotFound = false
   }
 
   static get properties() {
@@ -96,6 +91,14 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
         reflect: false,
         type: String
       },
+      fontStyle: {
+        reflect: false,
+        type: String
+      },
+      hasVerses: {
+        reflect: false,
+        type: Boolean
+      },
       language: {
         reflect: false,
         type: String
@@ -111,9 +114,40 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
     }
   }
 
+  constructor() {
+    super()
+
+    this.book = 'Genesis'
+    this.chapter = '1'
+    this.chapters = []
+    this.verseNotFound = false
+    this.hasVerses = true
+  }
+
   stateChanged(state) {
     this.book = state.book.current
     this.chapter = state.chapter.current
+
+    // handle font preference
+    if (state.preferences.fontStyle && state.preferences.fontStyle !== this.fontStyle) {
+
+      this.fontStyle = state.preferences.fontStyle
+      document.documentElement.style.setProperty('--bible-tools-single-verse-text-font', this.fontStyle)
+
+      const computedFontSize = `${Number(getFontSizeFromString(this.fontStyle) * 1.25)}px`
+      document.documentElement.style.setProperty('--bible-tools-single-verse-text-verse-font-size', `${computedFontSize}`)
+
+      const computedLineHeight = `${Number(getFontSizeFromString(this.fontStyle) * 1.5)}px`
+      document.documentElement.style.setProperty('--bible-tools-single-chapter-range-line-height', `${computedLineHeight}`)
+      document.documentElement.style.setProperty('--bible-tools-single-chapter-range-reference-font', this.fontStyle)
+    }
+
+    // handle text align preference
+    if (state.preferences.textAlign && state.preferences.textAlign !== this.textAlign) {
+      this.textAlign = state.preferences.textAlign
+
+      document.documentElement.style.setProperty('--bible-tools-single-chapter-range-text-align', this.textAlign)
+    }
 
     const routeInfo = state.router.activeRoute.replace(state.site.path, '').split('/')
 
@@ -136,6 +170,7 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
         this.verseNotFound = true
       }
 
+      this.hasVerses = state.preferences.shouldDisplayVerseNumbers === 'yes'
       this.language = state.translation.language.current
       this.version = state.translation.version.current
     }
@@ -146,7 +181,7 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       ? html`
         <bible-tools-chapter-navigator navigatorType="backward"></bible-tools-chapter-navigator>
         <bible-tools-single-chapter-range
-          hasreference
+          ?hasVerses=${this.hasVerses}
           language="${this.language}"
           version="${this.version}"
           book="${this.book}"

@@ -1,21 +1,14 @@
 export default {
-  site: {
-    path: '/',
-    title: 'Bible Tools'
-  },
-  translation: {
-    language: {
-      current: 'en'
-    },
-    version: {
-      current: 'KJV'
-    }
-  },
   chapter: {
     current: '1'
   },
   book: {
     current: 'Genesis'
+  },
+  preferences: {
+    fontStyle: 'normal 16px sans-serif',
+    shouldDisplayVerseNumbers: 'yes',
+    textAlign: 'justify'
   },
   reference: {
     books: {
@@ -3855,5 +3848,17 @@ export default {
   router: {
     activeRoute: '/',
     routes: {}
-  }
+  },
+  site: {
+    path: '/',
+    title: 'Bible Tools'
+  },
+  translation: {
+    language: {
+      current: 'en'
+    },
+    version: {
+      current: 'KJV'
+    }
+  },
 }

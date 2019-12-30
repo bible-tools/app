@@ -38,16 +38,17 @@ export class BibleToolsSingleChapterRange extends LitElement {
     return css`
       :host {
         color: var(--bible-tools-single-chapter-range-color, #000);
+        line-height: var(--bible-tools-single-chapter-range-line-height, initial);
       }
 
       article h1.reference {
         color: var(--bible-tools-single-chapter-range-reference-color);
-        font: var(--bible-tools-single-chapter-range-reference-font, bold 1.5rem sans-serif);
+        font: var(--bible-tools-single-chapter-range-reference-font, bold 16px sans-serif);
       }
 
       span.reference {
         color: var(--bible-tools-single-chapter-range-reference-color);
-        font: var(--bible-tools-single-chapter-range-reference-font, normal 1rem sans-serif);
+        font: var(--bible-tools-single-chapter-range-reference-font, normal 20px sans-serif);
       }
     `
   }

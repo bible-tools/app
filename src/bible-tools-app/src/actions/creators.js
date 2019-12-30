@@ -6,6 +6,9 @@ import {
   LOAD_REFERENCE_REQUEST,
   LOAD_REFERENCE_SUCCESS,
   LOAD_REFERENCE_FAILURE,
+  SET_READER_FONT_STYLE,
+  SET_READER_TEXT_ALIGN,
+  SET_READER_VERSE_DISPLAY,
   SET_SITE_PATH,
   SET_SITE_BRAND_PATH,
   SET_SITE_TITLE
@@ -61,4 +64,19 @@ export const setSiteBrandPath = brandPath => ({
 export const setSiteTitle = title => ({
   type: SET_SITE_TITLE,
   payload: title
+})
+
+export const setReaderFontStyle = fontStyle => ({
+  type: SET_READER_FONT_STYLE,
+  payload: fontStyle
+})
+
+export const setReaderTextAlign = textAlign => ({
+  type: SET_READER_TEXT_ALIGN,
+  payload: textAlign
+})
+
+export const setReaderVerseDisplay = shouldDisplayVerses => ({
+  type: SET_READER_VERSE_DISPLAY,
+  payload: shouldDisplayVerses
 })

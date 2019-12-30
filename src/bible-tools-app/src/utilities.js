@@ -31,24 +31,17 @@ export const defineCustomElement = (tagName, element) => {
   }
 }
 
-export const lookupSlugFromConfig = (slug, config) => {
-  let contentPost = undefined
+export const getFontSizeFromString = fontStyle => {
+  const p = document.createElement('p')
+  p.style.font = fontStyle
 
-  config.sites.find(site =>
-    site.content.find(content => {
-      if (content.slug === slug) {
-        contentPost = [{ apiHost: site.apiHost, content }]
-      }
-    })
-  )
-
-  return contentPost
+  return p.style.fontSize.replace(/[^0-9\.\s]/g,'')
 }
-
-export const getUrlWithTrailingSlash = url => `${new URL(url).pathname}/`.replace(/\/+\//g, '/')
 
 export const getLastPathSegment = () => {
   const match = window.location.pathname.match(/\/([a-z0-9_-]*[\/]?)$/)
 
   return match ? match[0].replace(/\//g, '') : ''
 }
+
+export const getUrlWithTrailingSlash = url => `${new URL(url).pathname}/`.replace(/\/+\//g, '/')

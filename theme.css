@@ -23,6 +23,8 @@ bible-tools-app {
   --article-gallery-display: flex;
   --article-gallery-item-flex: auto;
   --article-gallery-item-margin: 0;
+
+  --bible-tools-single-verse-text-verse-vertical-align: middle;
 }
 
 .theme-light bible-tools-app {
@@ -49,12 +51,14 @@ bible-tools-app {
   --bible-tools-single-verse-color: #111;
   --bible-tools-single-verse-reference-color: #111;
   --bible-tools-single-verse-text-color: #111;
+  --bible-tools-single-verse-text-verse-color: #111;
 }
 
 .theme-dark bible-tools-app {
   background-color: #111;
 
   --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --mdc-theme-text-primary-on-dark: #000;
   --mdc-theme-text-primary-on-background: #fff;
   --mdc-theme-secondary: #fff;
   --mdc-radio-unchecked-color: #fff;
@@ -73,6 +77,7 @@ bible-tools-app {
   --bible-tools-drawer-header-color: #fff;
   --bible-tools-single-chapter-range-reference-color: #fff;
   --bible-tools-single-verse-text-color: #fff;
+  --bible-tools-single-verse-text-verse-color: #fff;
   --bible-tools-single-verse-color: #fff;
   --bible-tools-single-verse-reference-color: #fff;
 }

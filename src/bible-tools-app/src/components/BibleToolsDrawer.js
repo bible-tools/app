@@ -86,32 +86,35 @@ export class BibleToolsDrawer extends connect(store)(LitElement) {
     this.drawerTitle = 'Bible Tools'
   }
 
+  _handleSidebarItem(title, path) {
+    return () => {
+      this.shadowRoot.dispatchEvent(BibleToolsDrawerToggle())
+
+      setSiteTitle(title)
+      setSiteBrandPath(path)
+      navigateByPath(`${this.sitePath}${path}`)
+    }
+  }
+
+
   stateChanged(state) {
     this.sitePath = state.site.path
   }
 
   render() {
-    const navToReader = (that, title, path) => () => {
-      that.shadowRoot.dispatchEvent(BibleToolsDrawerToggle())
-
-      setSiteTitle(title)
-      setSiteBrandPath(path)
-      navigateByPath(`${that.sitePath}${path}`)
-    }
-
     return html`
       <div class="drawer-container">
         <div class="drawer-header">
-          <a href="${this.sitePath}" @click=${navToReader(this, 'Bible Tools', '')}>${this.drawerTitle}</a>
+          <a href="${this.sitePath}" @click=${this._handleSidebarItem('Bible Tools', '')}>${this.drawerTitle}</a>
         </div>
         <paper-listbox>
           <div class="sidebar-item">
-            <paper-item @click=${navToReader(this, 'Bible Tools', '')}>Reader</paper-item>
+            <paper-item @click=${this._handleSidebarItem('Bible Tools', '')}>Reader</paper-item>
           </div>
         </paper-listbox>
         <paper-listbox>
           <div class="sidebar-item">
-            <paper-item @click=${navToReader(this, 'Preferences', 'preferences')}>Preferences</paper-item>
+            <paper-item @click=${this._handleSidebarItem('Preferences', 'preferences')}>Preferences</paper-item>
           </div>
         </paper-listbox>
       </div>
