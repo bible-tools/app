@@ -49,7 +49,7 @@ export class BibleToolsApp extends connect(store)(LitElement) {
       .app-content {
         background-color: var(--primary-background-color, #000);
         color: var(--primary-foreground-color, #fff);
-        padding: 1rem;
+        padding-top: 1rem;
       }
 
       /* xs, extra-small: 0px */
@@ -154,7 +154,7 @@ export class BibleToolsApp extends connect(store)(LitElement) {
         </app-toolbar>
       </app-header>
 
-      <app-drawer swipe-open>
+      <app-drawer>
         <bible-tools-drawer></bible-tools-drawer>
       </app-drawer>
 

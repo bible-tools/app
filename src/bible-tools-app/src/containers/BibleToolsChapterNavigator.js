@@ -10,11 +10,29 @@ export class BibleToolsChapterNavigator extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
+        align-content: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
         flex: auto;
+        justify-content: center;
+      }
+
+      .button-container {
+        align-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
       }
 
       .click-target {
+        background-color: var(--bible-tools-chapter-navigator-click-target-background-color, initial);
+        border: 0;
+        color: var(--bible-tools-chapter-navigator-click-target-color, initial);
         height: 100%;
+        margin: 0;
+        outline: none;
+        padding: 0;
         width: 100%;
       }
     `
@@ -105,10 +123,13 @@ export class BibleToolsChapterNavigator extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <div
-        class="click-target"
-        @click="${() => this.handleNavigate()}"
-      ></div>
+      <div class="button-container ${this.navigatorType === 'forward' ? 'forward' : 'backward'}">
+        <button class="click-target"
+          @click="${() => this.handleNavigate()}"
+        >
+          ${this.navigatorType === 'forward' ? html`>` : html`<`}
+        </button>
+      </div>
     `
   }
 }

@@ -44,6 +44,8 @@ bible-tools-app {
   --secondary-text-color: #000;
   --text-color: #111;
 
+  --bible-tools-chapter-navigator-click-target-color: #111;
+  --bible-tools-chapter-navigator-click-target-background-color: #fff;
   --bible-tools-drawer-container-background-color: #fff;
   --bible-tools-drawer-header-background-color: #fff;
   --bible-tools-drawer-header-color: #111;
@@ -72,6 +74,8 @@ bible-tools-app {
   --secondary-text-color: #fff;
   --text-color: #fff;
 
+  --bible-tools-chapter-navigator-click-target-color: #fff;
+  --bible-tools-chapter-navigator-click-target-background-color: #111;
   --bible-tools-drawer-container-background-color: #000;
   --bible-tools-drawer-header-background-color: #111;
   --bible-tools-drawer-header-color: #fff;
