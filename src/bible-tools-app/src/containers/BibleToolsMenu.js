@@ -121,11 +121,6 @@ export class BibleToolsMenu extends connect(store)(LitElement) {
             role="option"
             tabindex="${this.book === 'Genesis' ? 0 : 1}"
             aria-disabled="false"
-            @click="${() => {
-              loadChapter('1')
-              loadBook('Genesis')
-              navigateByPath(`${this.sitePath}bible/Genesis/1`)
-            }}"
             @tap="${() => {
               loadChapter('1')
               loadBook('Genesis')
@@ -142,11 +137,6 @@ export class BibleToolsMenu extends connect(store)(LitElement) {
                   role="option"
                   tabindex="${book === this.book ? 0 : 1}"
                   aria-disabled="false"
-                  @click="${() => {
-                    loadChapter('1')
-                    loadBook(book)
-                    navigateByPath(`${this.sitePath}bible/${book}/1`)
-                  }}"
                   @tap="${() => {
                     loadChapter('1')
                     loadBook(book)
@@ -183,10 +173,6 @@ export class BibleToolsMenu extends connect(store)(LitElement) {
                 role="option"
                 tabindex="${Number(chapter) === this.chapter ? '0' : 1}"
                 aria-disabled="false"
-                @click="${() => {
-                  loadChapter(chapter)
-                  navigateByPath(`${this.sitePath}bible/${this.book}/${chapter}`)
-                }}"
                 @tap="${() => {
                   loadChapter(chapter)
                   navigateByPath(`${this.sitePath}bible/${this.book}/${chapter}`)
