@@ -13,7 +13,9 @@ import {
   loadReference,
   loadVersion,
   setReaderFontStyle,
+  setReaderLineBreak,
   setReaderTextAlign,
+  setReaderTextDirection,
   setReaderVerseDisplay,
   setSiteBrandPath,
   setSiteTitle,
@@ -25,15 +27,18 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
+        display: flex;
+        margin-left: 5%;
+        margin-right: 5%;
         text-align: center;
       }
 
-      .preferences {
+      :host > section {
         margin: auto;
         max-width: 37.5rem;
       }
 
-      .versions {
+      :host > section > section {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -42,9 +47,14 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
         align-content: stretch;
       }
 
-      .versions section {
+      :host > section > section > section {
         flex: auto;
         width: 7rem;
+      }
+
+      h2 {
+        background-color: var(--bible-tools-preferences-h2-background-color);
+        color: var(--bible-tools-preferences-h2-color);
       }
     `
   }
@@ -55,11 +65,19 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
         reflect: false,
         type: Number
       },
+      hasLineBreakAtVerse: {
+        reflect: false,
+        type: String
+      },
       language: {
         reflect: false,
         type: String
       },
       shouldDisplayVerseNumbers: {
+        reflect: false,
+        type: String
+      },
+      textDirection: {
         reflect: false,
         type: String
       },
@@ -80,19 +98,27 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
     setSiteBrandPath('preferences')
   }
 
-  _handleFontSizeChange(target) {
-    if (this.fontSize !== target.value) {
-      setReaderFontStyle(`normal ${target.value}px san-serif`)
-
-      this.fontSize = target.value
+  _handleFontSizeChange({ value }) {
+    if (this.fontSize !== value) {
+      setReaderFontStyle(`normal ${value}px san-serif`)
     }
   }
 
-  _handleTextAlignChange(target) {
-    if (this.textAlign !== target.value) {
-      setReaderTextAlign(target.value)
+  _handleTextAlignChange({ value }) {
+    if (this.textAlign !== value) {
+      setReaderTextAlign(value)
+    }
+  }
 
-      this.textAlign = target.value
+  _handleTextDirectionChange({ value }) {
+    if (this.textDirection !== value) {
+      setReaderTextDirection(value)
+    }
+  }
+
+  _handleReaderLineBreakChange({ value }) {
+    if (this.hasLineBreakAtVerse !== value) {
+      setReaderLineBreak(value)
     }
   }
 
@@ -106,6 +132,21 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
 
     this.language = language
     this.version = version
+
+    // override default preferences based on supported languages / features
+    if (this.language === 'ar') {
+      this._handleTextAlignChange({ value: 'right' })
+      this._handleTextDirectionChange({ value: 'rtl' })
+      this._handleReaderLineBreakChange({ value: 'yes' })
+
+      setReaderVerseDisplay('no')
+    } else {
+      this._handleTextAlignChange({ value: 'justify' })
+      this._handleTextDirectionChange({ value: 'ltr' })
+      this._handleReaderLineBreakChange({ value: 'no' })
+
+      setReaderVerseDisplay('yes')
+    }
   }
 
   stateChanged(state) {
@@ -114,9 +155,11 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
       this.fontSize = fontSize
     }
 
+    this.hasLineBreakAtVerse = state.preferences.hasLineBreakAtVerse
+    this.language = state.translation.language.current
     this.shouldDisplayVerseNumbers = state.preferences.shouldDisplayVerseNumbers
     this.textAlign = state.preferences.textAlign
-    this.language = state.translation.language.current
+    this.textDirection = state.preferences.textDirection
     this.version = state.translation.version.current
   }
 
@@ -124,10 +167,17 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
     const theme = getThemeFromStorage()
 
     return html`
-      <div class="preferences">
+      <section>
         <h2>Translation</h2>
 
-        <div class="versions">
+        <section>
+          <section>
+            <h3>Arabic</h3>
+            <mwc-formfield label="AraSVD" @change=${e => this._handleTranslationChange(e.target)}>
+              <mwc-radio name="version" language="ar" version="AraSVD" ?checked=${this.language === 'ar' &&
+                this.version === 'AraSVD'}></mwc-radio>
+            </mwc-formfield>
+          </section>
           <section>
             <h3>English</h3>
             <mwc-formfield label="KJV" @change=${e => this._handleTranslationChange(e.target)}>
@@ -138,6 +188,11 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
             <mwc-formfield label="ASV" @change=${e => this._handleTranslationChange(e.target)}>
               <mwc-radio name="version" language="en" version="ASV" ?checked=${this.language === 'en' &&
                 this.version === 'ASV'}></mwc-radio>
+            </mwc-formfield>
+
+            <mwc-formfield label="WEB" @change=${e => this._handleTranslationChange(e.target)}>
+              <mwc-radio name="version" language="en" version="WEB" ?checked=${this.language === 'en' &&
+                this.version === 'WEB'}></mwc-radio>
             </mwc-formfield>
           </section>
           <section>
@@ -161,11 +216,19 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
                 this.version === 'SpaRV'}></mwc-radio>
             </mwc-formfield>
           </section>
-        </div>
+        </section>
 
         <h2>Display</h2>
 
-        <div class="theme">
+        <section>
+          <section>
+            <h3>Font</h3>
+
+            <mwc-formfield label="Size">
+              <mwc-slider pin="" markers="" min="10" max="32" value=${this.fontSize} step="2" @change=${e => this._handleFontSizeChange(e.target)}></mwc-slider>
+            </mwc-formfield>
+          </section>
+
           <section>
             <h3>Theme</h3>
 
@@ -177,17 +240,9 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
               <mwc-radio name="theme" value="light" ?checked=${theme === 'light'}></mwc-radio>
             </mwc-formfield>
           </section>
-        </div>
+        </section>
 
-        <div>
-          <section>
-            <h3>Font</h3>
-
-            <mwc-formfield label="Size">
-              <mwc-slider pin="" markers="" min="10" max="32" value=${this.fontSize} step="2" @change=${e => this._handleFontSizeChange(e.target)}></mwc-slider>
-            </mwc-formfield>
-          </section>
-
+        <section>
           <section>
             <h3>Verse Numbers</h3>
 
@@ -219,8 +274,32 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
               <mwc-radio name="textAlign" value="right" ?checked=${this.textAlign === 'right'}></mwc-radio>
             </mwc-formfield>
           </section>
-        </div>
-      </div>
+
+          <section>
+            <h3>Text Direction</h3>
+
+            <mwc-formfield label="Left to Right" @change=${e => this._handleTextDirectionChange(e.target)}>
+              <mwc-radio name="textDirection" value="ltr" ?checked=${this.textDirection === 'ltr'}></mwc-radio>
+            </mwc-formfield>
+
+            <mwc-formfield label="Right to Left" @change=${e => this._handleTextDirectionChange(e.target)}>
+              <mwc-radio name="textDirection" value="rtl" ?checked=${this.textDirection === 'rtl'}></mwc-radio>
+            </mwc-formfield>
+          </section>
+
+          <section>
+            <h3>Line Break at Verse</h3>
+
+            <mwc-formfield label="Yes" @change=${e => this._handleReaderLineBreakChange(e.target)}>
+              <mwc-radio name="hasLineBreakAtVerse" value="yes" ?checked=${this.hasLineBreakAtVerse === 'yes'}></mwc-radio>
+            </mwc-formfield>
+
+            <mwc-formfield label="No" @change=${e => this._handleReaderLineBreakChange(e.target)}>
+              <mwc-radio name="hasLineBreakAtVerse" value="no" ?checked=${this.hasLineBreakAtVerse === 'no'}></mwc-radio>
+            </mwc-formfield>
+          </section>
+        </section>
+      </section>
     `
   }
 }

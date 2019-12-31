@@ -7,8 +7,10 @@ export default {
   },
   preferences: {
     fontStyle: 'normal 16px sans-serif',
+    hasLineBreakAtVerse: 'no',
     shouldDisplayVerseNumbers: 'yes',
-    textAlign: 'justify'
+    textAlign: 'justify',
+    textDirection: 'ltr',
   },
   reference: {
     books: {

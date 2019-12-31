@@ -20,6 +20,11 @@ import { setSitePath } from './dispatchers/dispatchers'
 import { store } from './store/configureStore'
 import { connectRouter } from 'lit-redux-router'
 
+import './containers/BibleToolsBookMenu'
+import './containers/BibleToolsBranding'
+import './containers/BibleToolsChapterRangeView'
+import './containers/BibleToolsPreferences'
+
 connectRouter(store)
 
 export class BibleToolsApp extends connect(store)(LitElement) {
@@ -55,28 +60,28 @@ export class BibleToolsApp extends connect(store)(LitElement) {
       /* xs, extra-small: 0px */
       @media (min-width: 0px) {
         :host {
-          --bible-tools-menu-drop-down-content-min-width: 7rem;
+          --bible-tools-book-menu-drop-down-content-min-width: 7rem;
         }
       }
 
       /* sm, small: 600px */
       @media (min-width: 600px) {
         :host {
-          --bible-tools-menu-drop-down-content-min-width: 11rem;
+          --bible-tools-book-menu-drop-down-content-min-width: 11rem;
         }
       }
 
       /* md, medium: 960px */
       @media (min-width: 960px) {
         :host {
-          --bible-tools-menu-drop-down-content-min-width: 15rem;
+          --bible-tools-book-menu-drop-down-content-min-width: 15rem;
         }
       }
 
       /* lg, large: 1280px */
       @media (min-width: 1280px) {
         :host {
-          --bible-tools-menu-drop-down-content-min-width: 20rem;
+          --bible-tools-book-menu-drop-down-content-min-width: 20rem;
         }
       }
 
@@ -134,20 +139,17 @@ export class BibleToolsApp extends connect(store)(LitElement) {
           <bible-tools-hamburger>Menu</bible-tools-hamburger>
 
           <lit-route
-            .resolve="${() => import('./containers/BibleToolsMenu')}"
-            component="bible-tools-menu"
+            component="bible-tools-book-menu"
             path="${this.sitePath}"
           >
           </lit-route>
 
           <lit-route
-            .resolve="${() => import('./containers/BibleToolsMenu')}"
-            component="bible-tools-menu"
+            component="bible-tools-book-menu"
             path="${this.sitePath}bible/:book/:chapter"
           ></lit-route>
 
           <lit-route
-            .resolve="${() => import('./containers/BibleToolsBranding')}"
             component="bible-tools-branding"
             path="${this.sitePath}preferences"
           ></lit-route>
@@ -161,20 +163,17 @@ export class BibleToolsApp extends connect(store)(LitElement) {
       <!-- book, chapter, startverse, endverse -->
       <div class="app-content">
         <lit-route
-          .resolve="${() => import ('./containers/BibleToolsChapterRangeView')}"
           component="bible-tools-chapter-range-view"
           path="${this.sitePath}"
         >
         </lit-route>
 
         <lit-route
-          .resolve="${() => import ('./containers/BibleToolsChapterRangeView')}"
           component="bible-tools-chapter-range-view"
           path="${this.sitePath}bible/:book/:chapter"
         ></lit-route>
 
         <lit-route
-          .resolve="${() => import('./containers/BibleToolsPreferences')}"
           component="bible-tools-preferences"
           path="${this.sitePath}preferences"
         ></lit-route>

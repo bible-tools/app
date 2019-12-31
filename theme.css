@@ -49,6 +49,7 @@ bible-tools-app {
   --bible-tools-drawer-container-background-color: #fff;
   --bible-tools-drawer-header-background-color: #fff;
   --bible-tools-drawer-header-color: #111;
+  --bible-tools-preferences-h2-background-color: #eee;
   --bible-tools-single-chapter-range-reference-color: #111;
   --bible-tools-single-verse-color: #111;
   --bible-tools-single-verse-reference-color: #111;
@@ -79,6 +80,7 @@ bible-tools-app {
   --bible-tools-drawer-container-background-color: #000;
   --bible-tools-drawer-header-background-color: #111;
   --bible-tools-drawer-header-color: #fff;
+  --bible-tools-preferences-h2-background-color: #222;
   --bible-tools-single-chapter-range-reference-color: #fff;
   --bible-tools-single-verse-text-color: #fff;
   --bible-tools-single-verse-text-verse-color: #fff;

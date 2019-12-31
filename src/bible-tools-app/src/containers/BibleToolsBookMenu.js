@@ -10,7 +10,7 @@ import '@polymer/paper-dropdown-menu/paper-dropdown-menu-light.js'
 import '@polymer/paper-item/paper-item.js'
 import '@polymer/paper-listbox/paper-listbox.js'
 
-export class BibleToolsMenu extends connect(store)(LitElement) {
+export class BibleToolsBookMenu extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
@@ -20,7 +20,7 @@ export class BibleToolsMenu extends connect(store)(LitElement) {
       }
 
       .dropdown-content {
-        min-width: var(--bible-tools-menu-drop-down-content-min-width, 7rem);
+        min-width: var(--bible-tools-book-menu-drop-down-content-min-width, 7rem);
       }
 
       paper-dropdown-menu-light:first-of-type {
@@ -188,4 +188,4 @@ export class BibleToolsMenu extends connect(store)(LitElement) {
   }
 }
 
-defineCustomElement('bible-tools-menu', BibleToolsMenu)
+defineCustomElement('bible-tools-book-menu', BibleToolsBookMenu)

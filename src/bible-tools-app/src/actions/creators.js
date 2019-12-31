@@ -7,7 +7,9 @@ import {
   LOAD_REFERENCE_SUCCESS,
   LOAD_REFERENCE_FAILURE,
   SET_READER_FONT_STYLE,
+  SET_READER_LINE_BREAK,
   SET_READER_TEXT_ALIGN,
+  SET_READER_TEXT_DIRECTION,
   SET_READER_VERSE_DISPLAY,
   SET_SITE_PATH,
   SET_SITE_BRAND_PATH,
@@ -71,9 +73,19 @@ export const setReaderFontStyle = fontStyle => ({
   payload: fontStyle
 })
 
+export const setReaderLineBreak = hasLineBreakAtVerse => ({
+  type: SET_READER_LINE_BREAK,
+  payload: hasLineBreakAtVerse
+})
+
 export const setReaderTextAlign = textAlign => ({
   type: SET_READER_TEXT_ALIGN,
   payload: textAlign
+})
+
+export const setReaderTextDirection = textDirection => ({
+  type: SET_READER_TEXT_DIRECTION,
+  payload: textDirection
 })
 
 export const setReaderVerseDisplay = shouldDisplayVerses => ({

@@ -8,7 +8,9 @@ import {
   loadVersion as loadVersionCreator,
   loadLanguage as loadLanguageCreator,
   setReaderFontStyle as setReaderFontStyleCreator,
+  setReaderLineBreak as setReaderLineBreakCreator,
   setReaderTextAlign as setReaderTextAlignCreator,
+  setReaderTextDirection as setReaderTextDirectionCreator,
   setReaderVerseDisplay as setReaderVerseDisplayCreator,
   setSitePath as setSitePathCreator,
   setSiteBrandPath as setSiteBrandPathCreator,
@@ -24,7 +26,9 @@ export const loadReference = (language, version) => store.dispatch(loadReference
 export const loadVersion = version => store.dispatch(loadVersionCreator(version))
 
 export const setReaderFontStyle = fontStyle => store.dispatch(setReaderFontStyleCreator(fontStyle))
+export const setReaderLineBreak = hasLineBreakAtVerse => store.dispatch(setReaderLineBreakCreator(hasLineBreakAtVerse))
 export const setReaderTextAlign = fontStyle => store.dispatch(setReaderTextAlignCreator(fontStyle))
+export const setReaderTextDirection = textDirection => store.dispatch(setReaderTextDirectionCreator(textDirection))
 export const setReaderVerseDisplay = shouldDisplay => store.dispatch(setReaderVerseDisplayCreator(shouldDisplay))
 
 export const setSitePath = path => store.dispatch(setSitePathCreator(path))

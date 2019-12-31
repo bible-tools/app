@@ -68,6 +68,7 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       }
 
       bible-tools-single-chapter-range {
+        direction: var(--bible-tools-single-chapter-range-text-direction);
         text-align: var(--bible-tools-single-chapter-range-text-align);
       }
     `
@@ -99,6 +100,10 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
         reflect: false,
         type: Boolean
       },
+      isBlock: {
+        reflect: false,
+        type: Boolean
+      },
       language: {
         reflect: false,
         type: String
@@ -120,8 +125,9 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
     this.book = 'Genesis'
     this.chapter = '1'
     this.chapters = []
-    this.verseNotFound = false
     this.hasVerses = true
+    this.isBlock = false
+    this.verseNotFound = false
   }
 
   stateChanged(state) {
@@ -149,6 +155,13 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       document.documentElement.style.setProperty('--bible-tools-single-chapter-range-text-align', this.textAlign)
     }
 
+    // handle text direction preference
+    if (state.preferences.textDirection && state.preferences.textDirection !== this.textDirection) {
+      this.textDirection = state.preferences.textDirection
+
+      document.documentElement.style.setProperty('--bible-tools-single-chapter-range-text-direction', this.textDirection)
+    }
+
     const routeInfo = state.router.activeRoute.replace(state.site.path, '').split('/')
 
     const bookFromRoute = routeInfo[1] ? routeInfo[1] : undefined
@@ -170,6 +183,8 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
         this.verseNotFound = true
       }
 
+      this.isBlock = state.preferences.hasLineBreakAtVerse === 'yes'
+
       this.hasVerses = state.preferences.shouldDisplayVerseNumbers === 'yes'
       this.language = state.translation.language.current
       this.version = state.translation.version.current
@@ -181,6 +196,7 @@ export class BibleToolsChapterRangeView extends connect(store)(LitElement) {
       ? html`
         <bible-tools-chapter-navigator navigatorType="backward"></bible-tools-chapter-navigator>
         <bible-tools-single-chapter-range
+          ?isBlock=${this.isBlock}
           ?hasVerses=${this.hasVerses}
           language="${this.language}"
           version="${this.version}"
