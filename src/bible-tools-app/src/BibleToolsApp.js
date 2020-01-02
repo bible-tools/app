@@ -141,17 +141,20 @@ export class BibleToolsApp extends connect(store)(LitElement) {
           <lit-route
             component="bible-tools-book-menu"
             path="${this.sitePath}"
+            scrollDisable
           >
           </lit-route>
 
           <lit-route
             component="bible-tools-book-menu"
             path="${this.sitePath}bible/:book/:chapter"
+            scrollDisable
           ></lit-route>
 
           <lit-route
             component="bible-tools-branding"
             path="${this.sitePath}preferences"
+            scrollDisable
           ></lit-route>
         </app-toolbar>
       </app-header>
@@ -165,17 +168,20 @@ export class BibleToolsApp extends connect(store)(LitElement) {
         <lit-route
           component="bible-tools-chapter-range-view"
           path="${this.sitePath}"
+          scrollDisable
         >
         </lit-route>
 
         <lit-route
           component="bible-tools-chapter-range-view"
           path="${this.sitePath}bible/:book/:chapter"
+          scrollDisable
         ></lit-route>
 
         <lit-route
           component="bible-tools-preferences"
           path="${this.sitePath}preferences"
+          scrollDisable
         ></lit-route>
 
         <lit-route><h1>404 Not found</h1></lit-route>

@@ -98,33 +98,51 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
     setSiteBrandPath('preferences')
   }
 
-  _handleFontSizeChange({ value }) {
+  _handleFontSizeChange(e) {
+    e.preventDefault()
+
+    const { value } = e.target
+
     if (this.fontSize !== value) {
       setReaderFontStyle(`normal ${value}px san-serif`)
     }
   }
 
-  _handleTextAlignChange({ value }) {
+  _handleTextAlignChange(e) {
+    e.preventDefault()
+
+    const { value } = e.target
+
     if (this.textAlign !== value) {
       setReaderTextAlign(value)
     }
   }
 
-  _handleTextDirectionChange({ value }) {
+  _handleTextDirectionChange(e) {
+    e.preventDefault()
+
+    const { value } = e.target
+
     if (this.textDirection !== value) {
       setReaderTextDirection(value)
     }
   }
 
-  _handleReaderLineBreakChange({ value }) {
+  _handleReaderLineBreakChange(e) {
+    e.preventDefault()
+
+    const { value } = e.target
+
     if (this.hasLineBreakAtVerse !== value) {
       setReaderLineBreak(value)
     }
   }
 
-  _handleTranslationChange(target) {
-    const language = target.getAttribute('language')
-    const version = target.getAttribute('version')
+  _handleTranslationChange(e) {
+    e.preventDefault()
+
+    const language = e.target.getAttribute('language')
+    const version = e.target.getAttribute('version')
 
     loadLanguage(language)
     loadVersion(version)
@@ -135,15 +153,15 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
 
     // override default preferences based on supported languages / features
     if (this.language === 'ar') {
-      this._handleTextAlignChange({ value: 'right' })
-      this._handleTextDirectionChange({ value: 'rtl' })
-      this._handleReaderLineBreakChange({ value: 'yes' })
+      setReaderTextDirection('right')
+      setReaderTextDirection('rtl')
+      setReaderLineBreak('yes')
 
       setReaderVerseDisplay('no')
     } else {
-      this._handleTextAlignChange({ value: 'justify' })
-      this._handleTextDirectionChange({ value: 'ltr' })
-      this._handleReaderLineBreakChange({ value: 'no' })
+      setReaderTextDirection('justify')
+      setReaderTextDirection('ltr')
+      setReaderLineBreak('no')
 
       setReaderVerseDisplay('yes')
     }
@@ -173,45 +191,45 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
         <section>
           <section>
             <h3>Arabic</h3>
-            <mwc-formfield label="AraSVD" @change=${e => this._handleTranslationChange(e.target)}>
+            <mwc-formfield label="AraSVD" @change=${e => this._handleTranslationChange(e)}>
               <mwc-radio name="version" language="ar" version="AraSVD" ?checked=${this.language === 'ar' &&
                 this.version === 'AraSVD'}></mwc-radio>
             </mwc-formfield>
           </section>
           <section>
             <h3>English</h3>
-            <mwc-formfield label="KJV" @change=${e => this._handleTranslationChange(e.target)}>
+            <mwc-formfield label="KJV" @change=${e => this._handleTranslationChange(e)}>
               <mwc-radio name="version" language="en" version="KJV" ?checked=${this.language === 'en' &&
                 this.version === 'KJV'}></mwc-radio>
             </mwc-formfield>
 
-            <mwc-formfield label="ASV" @change=${e => this._handleTranslationChange(e.target)}>
+            <mwc-formfield label="ASV" @change=${e => this._handleTranslationChange(e)}>
               <mwc-radio name="version" language="en" version="ASV" ?checked=${this.language === 'en' &&
                 this.version === 'ASV'}></mwc-radio>
             </mwc-formfield>
 
-            <mwc-formfield label="WEB" @change=${e => this._handleTranslationChange(e.target)}>
+            <mwc-formfield label="WEB" @change=${e => this._handleTranslationChange(e)}>
               <mwc-radio name="version" language="en" version="WEB" ?checked=${this.language === 'en' &&
                 this.version === 'WEB'}></mwc-radio>
             </mwc-formfield>
           </section>
           <section>
             <h3>French</h3>
-            <mwc-formfield label="FreSegond" @change=${e => this._handleTranslationChange(e.target)}>
+            <mwc-formfield label="FreSegond" @change=${e => this._handleTranslationChange(e)}>
               <mwc-radio name="version" language="fr" version="FreSegond" ?checked=${this.language === 'fr' &&
                 this.version === 'FreSegond'}></mwc-radio>
             </mwc-formfield>
           </section>
           <section>
             <h3>German</h3>
-            <mwc-formfield label="GerElb1905" @change=${e => this._handleTranslationChange(e.target)}>
+            <mwc-formfield label="GerElb1905" @change=${e => this._handleTranslationChange(e)}>
               <mwc-radio name="version" language="de" version="GerElb1905" ?checked=${this.language === 'de' &&
                 this.version === 'GerElb1905'}></mwc-radio>
             </mwc-formfield>
           </section>
           <section>
             <h3>Spanish </h3>
-            <mwc-formfield label="SpaRV" @change=${e => this._handleTranslationChange(e.target)}>
+            <mwc-formfield label="SpaRV" @change=${e => this._handleTranslationChange(e)}>
               <mwc-radio name="version" language="es" version="SpaRV" ?checked=${this.language === 'es' &&
                 this.version === 'SpaRV'}></mwc-radio>
             </mwc-formfield>
@@ -225,7 +243,7 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
             <h3>Font</h3>
 
             <mwc-formfield label="Size">
-              <mwc-slider pin="" markers="" min="10" max="32" value=${this.fontSize} step="2" @change=${e => this._handleFontSizeChange(e.target)}></mwc-slider>
+              <mwc-slider pin="" markers="" min="10" max="32" value=${this.fontSize} step="2" @change=${e => this._handleFontSizeChange(e)}></mwc-slider>
             </mwc-formfield>
           </section>
 
@@ -258,19 +276,19 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
           <section>
             <h3>Text Alignment</h3>
 
-            <mwc-formfield label="Left" @change=${e => this._handleTextAlignChange(e.target)}>
+            <mwc-formfield label="Left" @change=${e => this._handleTextAlignChange(e)}>
               <mwc-radio name="textAlign" value="left" ?checked=${this.textAlign === 'left'}></mwc-radio>
             </mwc-formfield>
 
-            <mwc-formfield label="Center" @change=${e => this._handleTextAlignChange(e.target)}>
+            <mwc-formfield label="Center" @change=${e => this._handleTextAlignChange(e)}>
               <mwc-radio name="textAlign" value="center" ?checked=${this.textAlign === 'center'}></mwc-radio>
             </mwc-formfield>
 
-            <mwc-formfield label="Justify" @change=${e => this._handleTextAlignChange(e.target)}>
+            <mwc-formfield label="Justify" @change=${e => this._handleTextAlignChange(e)}>
               <mwc-radio name="textAlign" value="justify" ?checked=${this.textAlign === 'justify'}></mwc-radio>
             </mwc-formfield>
 
-            <mwc-formfield label="Right" @change=${e => this._handleTextAlignChange(e.target)}>
+            <mwc-formfield label="Right" @change=${e => this._handleTextAlignChange(e)}>
               <mwc-radio name="textAlign" value="right" ?checked=${this.textAlign === 'right'}></mwc-radio>
             </mwc-formfield>
           </section>
@@ -278,11 +296,11 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
           <section>
             <h3>Text Direction</h3>
 
-            <mwc-formfield label="Left to Right" @change=${e => this._handleTextDirectionChange(e.target)}>
+            <mwc-formfield label="Left to Right" @change=${e => this._handleTextDirectionChange(e)}>
               <mwc-radio name="textDirection" value="ltr" ?checked=${this.textDirection === 'ltr'}></mwc-radio>
             </mwc-formfield>
 
-            <mwc-formfield label="Right to Left" @change=${e => this._handleTextDirectionChange(e.target)}>
+            <mwc-formfield label="Right to Left" @change=${e => this._handleTextDirectionChange(e)}>
               <mwc-radio name="textDirection" value="rtl" ?checked=${this.textDirection === 'rtl'}></mwc-radio>
             </mwc-formfield>
           </section>
@@ -290,11 +308,11 @@ export class BibleToolsPreferences extends connect(store)(LitElement) {
           <section>
             <h3>Line Break at Verse</h3>
 
-            <mwc-formfield label="Yes" @change=${e => this._handleReaderLineBreakChange(e.target)}>
+            <mwc-formfield label="Yes" @change=${e => this._handleReaderLineBreakChange(e)}>
               <mwc-radio name="hasLineBreakAtVerse" value="yes" ?checked=${this.hasLineBreakAtVerse === 'yes'}></mwc-radio>
             </mwc-formfield>
 
-            <mwc-formfield label="No" @change=${e => this._handleReaderLineBreakChange(e.target)}>
+            <mwc-formfield label="No" @change=${e => this._handleReaderLineBreakChange(e)}>
               <mwc-radio name="hasLineBreakAtVerse" value="no" ?checked=${this.hasLineBreakAtVerse === 'no'}></mwc-radio>
             </mwc-formfield>
           </section>
