@@ -1,0 +1,1 @@
+import{a as r}from"./_rollupPluginBabelHelpers-6e21a838.js";import{createReducer as a}from"./utilities.js";import{LOAD_REFERENCE_SUCCESS as e}from"./types.js";var o=a({},{[e](a,e){var{payload:o}=e;return r({},a,{},o)}});export default o;

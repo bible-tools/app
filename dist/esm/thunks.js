@@ -1,0 +1,1 @@
+import"./types.js";import{loadReferenceRequest as t,loadReferenceSuccess as o,loadReferenceFailure as e}from"./creators.js";var r=(r,a)=>s=>{var c="https://bible-tools.github.io/data/translations/".concat(r,"/").concat(a,"/reference.json");s(t()),fetch(c).then(t=>{t.ok&&t.json().then(t=>{s(o(t))})}).catch(t=>{s(e(t))})};export{r as loadReference};
